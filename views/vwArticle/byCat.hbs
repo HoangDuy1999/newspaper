@@ -1,0 +1,88 @@
+<div class="container" id="content">
+
+
+    {{#if this.empty}}
+    <div class="card-body">
+        <p class="card-text">Không có dữ liệu.</p>
+    </div>
+    {{else}}
+    <div class="row d-flex mt-5">
+        {{!-- <div class="col-sm-4 col-md-12 col-xs-12" id="byCat-article"> --}}
+            <ul class="list-group list-group-flush list-group-item mb-5">
+            {{#each list}}
+                <div class="row no-gutters align-items-center  ">
+                    <div class="col-md-4 mt-5 ">
+                        <div class="img-cont ml-2 ">
+                            <img src="/article/{{images}}" alt="{{ID}}-{{title}}" title="{{c_Name}}: {{id}}-{{title}}"
+                                style="width: 300px;height:250px" class="card-img lazyload" >
+                        </div>
+                    </div>
+                    <div class="col-md-8 mt-2 ">
+                        <div class="card-body">
+                            <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}" class="text-dark link_bycat">
+                                <h5 class="card-title" title="{{title}}">{{title}}</h5>
+                            </a>
+                            <h6 class="card-subtitle mb-2 text-muted">
+                            <a href="/categories/{{tc_alias}}/{{c_alias}}" class="article-category badge badge-primary mr-3">{{c_Name}}</a>
+                            <span class="article-date">
+                                <i class="far fa-calendar-alt mr-1"></i>
+                                {{format_DOB public_date}}
+                            </span>
+                            </h6>
+                            <h6 class="card-text mb-2 text-muted">
+                                <i class="fas fa-tags "></i>
+                                {{#each tags}}
+                                <a href="/tags/{{tg_alias}}" class="badge badge-secondary">{{Name }} &nbsp;</a>
+                                {{/each}}
+                            </h6>
+                            <div class="card-text ">
+                                {{abstract}}
+                            
+                            </div>
+
+            
+            
+                        </div>
+                    </div>
+            
+                </div>
+                {{/each}}
+            </ul>
+         
+
+        {{!-- </div> --}}
+        <div class="col-12 d-flex justify-content-center mt-5">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item {{#unless can_go_prev}}disabled{{/unless}}">
+                        <a class="page-link" href="?page={{prev_value}}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {{#each this.page_items}}
+                    {{#if isActive}}
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">
+                            {{value}}
+                            <span class="sr-only">(current)</span>
+                        </span>
+                    </li>
+                    {{else}}
+                    <li class="page-item {{#if isDisabled}}disabled{{/if}}">
+                        <a class="page-link" href="?page={{value}}">{{value}}</a>
+                    </li>
+                    {{/if}}
+                    {{/each}}
+                    <li class="page-item {{#unless can_go_next}}disabled{{/unless}}">
+                        <a class="page-link" href="?page={{next_value}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+</div>
+{{/if}}
+</div>

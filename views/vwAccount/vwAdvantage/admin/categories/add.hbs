@@ -1,0 +1,85 @@
+{{#section 'js'}}
+<script>
+    $('#addCat').on('submit', function (e) {
+        e.preventDefault();
+        validate();
+    })
+    function validate() {
+        const nameCat = $('#txtname').val();
+        const aliasCat = $('#txtalias').val();
+        const img = $('#c_images').val();
+        if (nameCat == "" && aliasCat == "") {
+            alert("Nội không được rỗng!!Mời bạn nhập lại!");
+            return false;
+        }
+        else if (nameCat == "") {
+            alert("Tên chuyên mục không được rỗng!!Mời bạn nhập lại!");
+            return false;
+        }
+        else if (aliasCat == "") {
+            alert("Bí danh chuyên mục không được rỗng!!Mời bạn nhập lại!");
+            return false;
+        }
+        else if (img == "") {
+            alert("Hình chuyên mục không được rỗng!!Mời bạn nhập lại!");
+            return false;
+        }
+        $('#addCat').off('submit').submit();
+    }
+</script>
+{{/section}}
+<div class="container">
+    <div class="col-8 justify-content-center addcat">
+        <h4 class="mt-5 text-success">Thêm chuyên mục con</h4>
+        <div class="card-body Cat">
+            <form method="POST" action="" id="addCat" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="exampleInputFail">Chuyên mục cha</label>
+                <select name="tc_ID" id="NameConId" class="form-control ">
+                    {{#each this.typeCat }}
+                    <option value="{{ID}}">{{#if ID}}{{tc_Name}}
+                        {{/if}}</option>
+                    {{/each}}
+                </select>
+            </div>
+                <div class="form-group">
+                    <label for="txtConName">Tên chuyên mục <span class="validate">*</span></label>
+                    <input type="text" class="form-control" id="txtname" name="c_Name">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputHomePage1">Bí danh <span class="validate">*</span></label>
+                    <input type="text" class="form-control"  
+                    placeholder="vd: bai-hoc-kinh-doanh" id="txtalias"
+                     name="c_alias">
+                </div>
+                <div class="form-group">
+                <label for="exampleInputFail">Bí danh cha</label>
+                <select name="tc_alias" id="NameConId" class="form-control ">
+                    {{#each this.typeCat }}
+                    <option value="{{alias}}">{{#if ID}}{{alias}}
+                        {{/if}}</option>
+                    {{/each}}
+                </select>
+               </div>
+                <div class="form-group">
+                    <label for="images"><b>Upload hình ảnh</b> <span class="validate">*</span></label>
+                    <div>
+                        <img src="/admin/img/{{this.cats.c_images}}" alt="{{this.cats.c_Name}}"
+                            title="{{this.cats.ID}}-{{this.cats.c_Name}}" style="width: 400px;margin: 10px;border-radius: 2% ">
+                    </div>
+                    <input type="file" class="form-control" id="c_images" name="c_images">
+                </div>
+
+                <a class="btn btn-success" href="/admin/categories" role="button" title="Back to List">
+                    <i class="fa fa-backward" aria-hidden="true"></i>
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                   Lưu
+                </button>
+            </form>
+        </div>
+
+    </div>
+</div>

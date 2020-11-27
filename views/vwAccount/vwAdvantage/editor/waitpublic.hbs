@@ -1,0 +1,157 @@
+{{#section 'css'}}
+<script src="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"></script>
+<style>
+    .disable_a{
+            color: currentColor;
+            opacity: 0.5;
+            text-decoration: none;
+            pointer-events: none;
+        }
+.dataTables_filter{
+    float: right;
+}
+.pagination
+{
+    float: right;
+}
+</style>
+
+{{/section}}
+{{#section 'js'}}
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+  <script>
+    $(document).ready(function() {
+     
+    // Cấu hình các nhãn phân trang
+    $('#BangTTSanPham').dataTable( {
+        "language": {
+        "sProcessing":   "Đang xử lý...",
+        "sLengthMenu":   "Xem _MENU_ mục",
+        "sZeroRecords":  "Không tìm thấy dòng nào phù hợp",
+        "sInfo":         "Đang xem _START_ đến _END_ trong tổng số _TOTAL_ mục",
+        "sInfoEmpty":    "Đang xem 0 đến 0 trong tổng số 0 mục",
+        "sInfoFiltered": "(được lọc từ _MAX_ mục)",
+        "sInfoPostFix":  "",
+        "sSearch":       "Tìm:",
+        "sUrl":          "",
+        "oPaginate": {
+            "sFirst":    "Đầu",
+            "sPrevious": "Trước",
+            "sNext":     "Tiếp",
+            "sLast":     "Cuối"
+            }
+        }
+    } );
+         
+    } ); 
+  </script>   
+<script>
+    $(document).ready( function(){
+        $("#BangTTSanPham").on("click", ".xuatban", function (event){
+            var $row = $(this).closest("tr"); 
+            $("#id").val( $row.find("#id_modal").text());
+        });
+    });
+    $('#frmmodal').on('submit', function (e) {
+            e.preventDefault();
+            validate();
+        })
+        function validate(){
+            const title_alias = $('#title_alias').val();
+            if(title_alias == ""){
+                alert("Đường dẫn bài viết không được trống.");
+                return false;
+            }
+            $.getJSON(`/account/advantage/3/is-available?alias=${title_alias}`, function (data) {
+                if (data) {
+                    $('#frmmodal').off('submit').submit();
+                } else {
+                    alert('đường dẫn alias đã tồn tại');
+                }
+            })
+        }
+</script>
+
+{{/section}}
+<div class="container" style="margin-top: 12%;">
+    <h3 style="text-align: center;  margin-top: 12%;" class="mb-3">Danh Sách Bài Viết</h3>
+      <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Xem Theo
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="/account/advantage/3/watingforpublic?value=1">Tất cả</a>
+    <a class="dropdown-item" href="/account/advantage/3/watingforpublic?value=2">Chưa đến ngày xuất bản</a>
+    <a class="dropdown-item" href="/account/advantage/3/watingforpublic?value=3">Đến ngày xuất bản</a>
+  </div>
+</div>
+    <table class="table table-bordered text-center" id="BangTTSanPham">
+    <thead>
+        <tr>
+        <th>Id</th>
+        <th>Tiêu Đề</th>
+        <th style="min-width:210px">Tình Trạng</th>
+        <th style="min-width:150px">Ngày xuất bản</th>
+        <th style="min-width:120px">Thao Tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each rows}}
+            <tr>
+                <th scope="row" id="id_modal">{{id}}</th>
+                <td>{{title}}</td>
+                <td>Đã được duyệt chờ xuất bản</td>
+                <td>{{public_date}}</td>
+                <td>
+                    <a id="try" class="btn btn-info" href="/account/advantage/3/category/{{c_ID}}/{{id}}" role="button" title="Xem">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                    <!-- Button trigger modal -->
+                    <a class="xuatban btn btn-success {{#if duocxb}} {{else}}disable_a {{/if}}" data-toggle="modal" title="Xuất bản" data-target="#exampleModal">
+                        <i class="fa fa-check-square" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+        {{/each}}
+    </tbody>
+    </table>
+
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Xuất Bản</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="background-image: url('https://i.ytimg.com/vi/mubt_h9NRn4/maxresdefault.jpg'); background-position: right; background-size: cover;">
+            <form method="POST" id="frmmodal">
+                <div class="form-group">
+                    <label  for="exampleInputEmail1" style="color: red; font-weight:bold">Id</label>
+                    <input id="id" name="id" type="text" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label style="color: red; font-weight:bold">Đường dẫn alias(đường dẫn vô bài viết)</label>
+                    <textarea class="form-control" name="title_alias" id="title_alias" placeholder="dai-dich-co-vid-19-bat-nguon-tu-trung-quoc--..." rows="2" ></textarea>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="featured" name="featured">
+                    <label class="form-check-label" for="exampleCheck1" style="color:green; font-weight:bold">Featured</label>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="isPremium" name="isPremium" checked>
+                    <label class="form-check-label" for="exampleCheck2" style="color:green; font-weight:bold">Premium</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Xuất bản</button>
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div
+</div>

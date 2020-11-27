@@ -1,0 +1,282 @@
+<div class="container">
+    <div id="hot-article" class="my-5  ">
+        <!-- NỔI BẬT -->
+                <div class="h3 hot-article col-sm-12 col-md-12 col-xs-12"><p style="padding-top:1%;">NỔI BẬT</p></div>
+        <div class="row">
+            <div class="col-lg-8 pr-1 ">
+                <div class="bd-example">
+                    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            {{#each bestlist1 }}
+                            <div class="carousel-item active" data-interval="3000">
+                                <img src="article/{{images}}" alt="{{ID}}-{{title}}"
+                                    title="{{c_Name}}: {{id}}-{{title}}" class="d-block w-100 lazyload" alt="..."
+                                    style="width: 600px;height:600px">
+                                <div class="carousel-caption d-md-block">
+                                    <h6 class="text-light font-weight-light">
+                                        <a href="/categories/chung-khoan"
+                                            class="badge badge-warning mr-3">{{c_Large}}</a>
+                                    </h6>
+                                    <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}/"
+                                        class="text-primary link_trend">
+                                        <h3 title="{{title}}">{{title}}</h3>
+                                    </a>
+                                    <p class="card-subtitle mt-2 mr-1 text-light">Ngày đăng: {{format_DOB public_date}}
+                                    </p>
+                                    <p class="text-success font-weight-light">Tác giả: {{pseudonym}}</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item " data-interval="3000">
+                                <img src="article/{{images}}" alt="{{ID}}-{{title}}"
+                                    title="{{c_Name}}: {{id}}-{{title}}" class="d-block w-100 lazyload" alt="..."
+                                    style="width: 600px;height:600px">
+                                <div class="carousel-caption d-md-block">
+                                    <h6 class="text-light font-weight-light">
+                                        <a href="/categories/chung-khoan"
+                                            class="badge badge-warning mr-3">{{c_Large}}</a>
+                                    </h6>
+                                    <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}/"
+                                        class="text-primary link_trend">
+                                        <h3 title="{{title}}">{{title}}</h3>
+                                    </a>
+                                    <p class="card-subtitle mt-2 mr-1 text-light">Ngày đăng: {{format_DOB public_date}}
+                                    </p>
+                                    <p class="text-success font-weight-light">Tác giả: {{pseudonym}}</p>
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 pl-1  col-xs-5">
+
+                <div class="trending-item">
+                    {{#each bestlist2}}
+                    <img src="article/{{images}}" alt="{{ID}}-{{title}}" title="{{c_Name}}: {{id}}-{{title}}"
+                        class="d-block w-100 lazyload" alt="..." style="width: 300px;height:300px">
+                    <div class="trending-caption">
+                        <h6 class="text-light font-weight-light">
+                            <a href="/categories/doanh-nghiep" class="badge badge-success mr-3">{{c_Large}}</a>
+                            {{format_DOB public_date}}
+                        </h6>
+                        <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}" class="text-primary link_trend">
+                            <h5 title="{{title}}">{{title}}</h5>
+                        </a>
+
+                        <p class="text-success font-weight-light">Tác giả: {{pseudonym}}</p>
+                    </div>
+                    {{/each}}
+
+                </div>
+
+                <div class="trending-item mt-1">
+                    {{#each bestlist3}}
+                    <img src="article/{{images}}" alt="{{ID}}-{{title}}" title="{{c_Name}}: {{id}}-{{title}}"
+                        class="d-block w-100 lazyload" style="width: 300px;height:300px" alt="...">
+                    <div class="trending-caption">
+                        <h6 class="text-light font-weight-light ">
+                            <a href="/categories/tai-chinh" class="badge badge-primary mr-3">{{c_Large}}</a>
+                            {{format_DOB public_date}}
+                        </h6>
+                        <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}" class="text-primary link_trend">
+                            <h5 title="{{title}}">{{title}}</h5>
+                        </a>
+                        <p class="text-success font-weight-light">Tác giả: {{pseudonym}}</p>
+                    </div>
+                    {{/each}}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-lg-7">
+            <!-- MỚI NHẤT -->
+            <div id="newest">
+                <div class="h3 newlist col-sm-12 col-md-12 col-xs-12"><p style="padding-top:1%;color:white">MỚI NHẤT</p> </div>
+                <ul class="list-group list-group-flush list-group-item mb-5">
+                    {{#each this.newlist }}
+                    <div class="row no-gutters align-items-center  ">
+                        <div class="col-md-5 mb-2 ">
+                            <div class="img-cont ml-2 ">
+                                <img style="width: 290px;height:250px" src="article/{{images}}" alt="{{ID}}-{{title}}"
+                                    title="{{c_Name}}: {{id}}-{{title}}" class="card-img lazyload" alt="...">
+                            </div>
+                        </div>
+                        <div class="col-md-7 mt-2 ">
+                            <div class="card-body ">
+                                <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}" class="text-dark link_viewest">
+                                    <h5 class="card-title" title="{{title}}">{{title}}</h5>
+                                </a>
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    <a href="/categories/{{tc_alias}}/{{c_alias}}"
+                                        class="badge badge-primary mr-3 ">{{c_Large}}-{{c_Name}}</a>
+                                </h6>
+                                <p>{{abstract}}</p>
+                                <div class="card-subtitle mt-2 mr-1 text-muted datepublic">
+                                    <p>Tác giả: {{pseudonym}}</p>
+                                    <p class="card-subtitle mt-2 mr-1 text-muted ">Ngày đăng: {{format_DOB public_date}}
+                                    </p>
+                    
+                                </div >
+                                <div class="list-group-item mt-5"></div>
+
+
+                            </div>
+                        </div>
+                    
+                    </div>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <!-- XEM NHIỀU -->
+            <div id="most-viewed">
+                <div class="h3 viewestt col-sm-12 col-md-12 col-xs-12"><p style="padding-top:1%;color:white">XEM NHIỀU NHẤT</p></div>
+                <div class=" mb-5 viewest">
+                    {{#each viewestlist}}
+                    <div class="row no-gutters align-items-center ">
+                        <div class="col-md-5 mb-2">
+                            <div class="img-cont ml-2">
+                                <img style="width: 250px;height:150px" src="article/{{images}}" alt="{{ID}}-{{title}}"
+                                    title="{{c_Name}}: {{id}}-{{title}}" class="card-img lazyload" alt="...">
+                            </div>
+                        </div>
+                        <div class="col-md-7 mt-2">
+                            <div class="card-body">
+                                <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}" class="text-dark link_viewest">
+                                    <h5 class="card-title" title="{{title}}">{{title}}</h5>
+                                </a>
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    <a href="/categories/{{tc_alias}}/{{c_alias}}"
+                                        class="badge badge-primary mr-3 ">{{c_Large}}-{{c_Name}}</a>
+                                </h6>
+                                <p>{{abstract}}</p>
+                                <div class="card-subtitle mt-2 mr-1 text-muted datepublic">
+                                   <p>Tác giả: {{pseudonym}}</p>
+                                    <p class="mt-2">Lược xem:{{views}}</p>
+                                    <p class="card-subtitle mt-2 mr-1 text-muted ">Ngày đăng: {{format_DOB public_date}}
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIXME: Responsive -->
+    <!-- TOP 10 CHUYÊN MỤC -->
+    <div class="breaking_news ">
+        <h3>TOP 10 CHUYÊN MỤC</h3>
+    </div>
+<div id="top-10" class="my-5">
+        <div class="card-group mt-4 viewTop10">
+            <!--chứng khoán-->
+            <div class="container mt-3">
+                <div class="row mb-5 ">
+                        {{!-- <h5 class="mb-5 text-danger">CHỨNG KHOÁN</h5> --}}
+                        {{#each this.top10_chungkhoan}}
+                        <div class="col-sm-12 col-md-4 col-xs-4">
+                           <div class="card-body">
+                                <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}" class="text-dark link_top10">
+                                    <h5 style="height:70px;" title="{{title}}" class="card-title">{{title}}</h5>
+                                </a>
+                            
+                                <h6 class="card-subtitle mb-2 text-muted ">
+                                    <a href="/categories/{{tc_alias}}/{{c_alias}}"
+                                        class="badge badge-warning mr-3">{{c_Name}}</a>
+                                </h6>
+                                <div class="img-cont">
+                                    <img src="article/{{images}}" title="{{c_Name}}: {{id}}-{{title}}"
+                                        style="width:300px ;height:250px" class="card-img-top lazyload" alt="...">
+                                </div>
+                                <div class="card-body ck" style="height: 120px;">
+                                    <p class="card-subtitle mt-2 mr-1 text-muted">Ngày đăng: {{format_DOB public_date}}</p>
+                                    <p class="card-subtitle mt-2 mr-1 text-muted">Tác giả: {{pseudonym}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{!-- <h5 class="mb-5 text-danger">DOANH NGHIỆP</h5> --}}
+                        {{#each this.top10_doanhnghiep}}
+                            <div class="col-sm-12 col-md-4 col-xs-4">
+                                <div class="card-body">
+                                    <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}" class="text-dark link_top10">
+                                        <h5 style="height:70px;" title="{{title}}" class="card-title">{{title}}</h5>
+                                    </a>
+                            
+                                    <h6 class="card-subtitle mb-2 text-muted">
+                                        <a href="/categories/{{tc_alias}}/{{c_alias}}" class="badge badge-success mr-3">{{c_Name}}</a>
+                                    </h6>
+                                    <div class="img-cont">
+                                        <img src="article/{{images}}" title="{{c_Name}}: {{id}}-{{title}}" style="width:300px ;height:250px"
+                                            class="card-img-top lazyload" alt="...">
+                                    </div>
+                                    <div class="card-body ck" style="height: 120px;">
+                                        <p class="card-subtitle mt-2 mr-1 text-muted">Ngày đăng: {{format_DOB public_date}}</p>
+                                        <p class="card-subtitle mt-2 mr-1 text-muted">Tác giả: {{pseudonym}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/each}}
+                        {{!-- <h5 class="mb-5 text-danger">TÀI CHÍNH</h5> --}}
+                        {{#each this.top10_taichinh}}
+                            <div class="col-sm-12 col-md-4 col-xs-4">
+                                <div class="card-body">
+                                    <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}" class="text-dark link_top10">
+                                        <h5 style="height:70px;" title="{{title}}" class="card-title">{{title}}</h5>
+                                    </a>
+                            
+                                    <h6 class="card-subtitle mb-2 text-muted">
+                                        <a href="/categories/{{tc_alias}}/{{c_alias}}" class="badge badge-primary mr-3">{{c_Name}}</a>
+                                    </h6>
+                                    <div class="img-cont">
+                                        <img src="article/{{images}}" title="{{c_Name}}: {{id}}-{{title}}" style="width:300px ;height:250px"
+                                            class="card-img-top lazyload" alt="...">
+                                    </div>
+                                    <div class="card-body ck" style="height: 120px;">
+                                        <p class="card-subtitle mt-2 mr-1 text-muted">Ngày đăng: {{format_DOB public_date}}</p>
+                                        <p class="card-subtitle mt-2 mr-1 text-muted">Tác giả: {{pseudonym}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/each}}
+                        {{!-- <h5 class="mb-5 text-danger">KIẾN THỨC ĐẦU TƯ</h5> --}}
+                        {{#each this.top10_kienthucdautu}}
+                            <div class="col-sm-12 col-md-4 col-xs-4">
+                                <div class="card-body">
+                                    <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}" class="text-dark link_top10">
+                                        <h5 style="height:70px;" title="{{title}}" class="card-title">{{title}}</h5>
+                                    </a>
+                            
+                                    <h6 class="card-subtitle mb-2 text-muted ">
+                                        <a href="/categories/{{tc_alias}}/{{c_alias}}" class="badge badge-info mr-3">{{c_Name}}</a>
+                                    </h6>
+                                    <div class="img-cont">
+                                        <img src="article/{{images}}" title="{{c_Name}}: {{id}}-{{title}}" style="width:300px ;height:250px"
+                                            class="card-img-top lazyload" alt="...">
+                                    </div>
+                                    <div class="card-body ck" style="height: 120px;">
+                                        <p class="card-subtitle mt-2 mr-1 text-muted">Ngày đăng: {{format_DOB public_date}}</p>
+                                        <p class="card-subtitle mt-2 mr-1 text-muted">Tác giả: {{pseudonym}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/each}}
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+/******************************************
+CSS PHẦN CHO TRANG  LỖI 404 
+******************************************/
+.error_pagenotfound {
+	padding: 50px 30px 58px 30px;
+	margin: 0 auto;
+	width: 80%;
+	background-color:whitesmoke;
+	border: 1px solid #eee;
+	text-align: center;
+	margin: 30px auto;
+}
+.error_pagenotfound strong {
+	display: block;
+	font-size: 145px;
+	line-height: 100px;
+	color: #999;
+	font-weight: bold;
+	margin-bottom: 10px;
+	text-shadow: 5px 5px 1px #eaeaea;
+}
+.error_pagenotfound b {
+	display: block;
+	font-size: 40px;
+	line-height: 50px;
+	color: #999;
+	margin: 0;
+	font-weight: 300;
+}
+.error_pagenotfound em {
+	display: block;
+	font-size: 18px;
+	color: #0083c1;
+	margin: 15px 0;
+	font-style: normal;
+}
+a.button-back {
+	border-radius: 50px;
+	font-size: 16px;
+	padding: 15px 25px;
+	margin-top: 15px;
+	background: #fed700;
+	color: #333e48;
+    font-weight: bold;
+    text-decoration: none;
+}
+a.button-back:hover {
+	background: #333e48;
+	color: #fff;
+}
+/*THÊM XÍU HIỆU ỨNG CHO TRANG 404 THÊM XINH ĐỘNG*/
+#animate-arrow {
+	position: relative;
+	top: 15px;
+	left: 0px;
+	animation: move 1s ease infinite;
+	margin-top: 150px;
+	color: red;
+}
+ @keyframes move {
+ 50% {
+ bottom: 10px;
+ top: 0px;
+}
+}
+@media only screen and (min-width: 300px) and (max-width: 767px) {
+.error_pagenotfound {
+	width: 100%;
+	border-radius: 0;
+	margin: 25px auto;
+	padding: 15px;
+}
+.error_pagenotfound em {
+	line-height: none;
+	margin-bottom: 10px;
+}
+}

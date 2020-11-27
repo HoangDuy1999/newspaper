@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="Deerhost Template">
+        <meta name="keywords" content="Deerhost, unica, creative, html">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title> {{title}} </title>
+        <!--<link rel="shortcut icon" type="image/x-icon" href="./img/editor.png">
+        <link rel="shortcut icon" type="image/x-icon" href="/../../img/editor.png">-->
+        <link rel="shortcut icon" type="image/x-icon" href="/../img/editor.png">
+
+        <!-- Google Font -->
+        <link
+            href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,900&display=swap"
+            rel="stylesheet">
+
+        <!-- Css Styles -->
+        <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+        <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+        <link rel="stylesheet" href="/css/flaticon.css" type="text/css">
+        <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+        <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+        <link rel="stylesheet" href="/css/style.css" type="text/css">
+        <style>
+        .disable_a{
+            color: currentColor;
+            opacity: 0.5;
+            text-decoration: none;
+            pointer-events: none;
+        }
+    </style>
+        {{{_sections.css}}}
+    </head>
+
+    <body>
+        <!-- Page Preloder -->
+        <div id="preloder">
+            <div class="loader"></div>
+        </div>
+
+
+        <div class="offcanvas__menu__wrapper">
+            <div class="canvas__close">
+                <span class="fa fa-times-circle-o"></span>
+            </div>
+            <div class="offcanvas__logo">
+                <a href="/"><img src="/img/logo.png" alt=""></a>
+            </div>
+            <nav class="offcanvas__menu mobile-menu">
+                <ul>
+                    <li><a href="http://localhost:3000/account/advantage/3">TRANG
+                            CHỦ</a></li>
+                    {{#if (check_pemission 1) }}
+                    <li><a id="chungkhoan">CHỨNG KHOÁN</a>
+                        <ul class="dropdown">
+                            <li><a
+                                    href="http://localhost:3000/account/advantage/3/category/1">Cổ
+                                    phiếu top
+                                    đầu</a></li>
+                            <li><a
+                                    href="http://localhost:3000/account/advantage/3/category/2">Xu
+                                    hướng nhận định</a></li>
+                            <li><a
+                                    href="http://localhost:3000/account/advantage/3/category/8">Nhịp
+                                    đập thị trường</a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{else}}
+                    <li><a class="disable_a" id="chungkhoan">CHỨNG KHOÁN</a>
+                        <ul class="dropdown">
+                            <li><a class="disable_a"
+                                    href="http://localhost:3000/account/advantage/3/category/1">Cổ
+                                    phiếu top
+                                    đầu</a></li>
+                            <li><a class="disable_a"
+                                    href="http://localhost:3000/account/advantage/3/category/2">Xu
+                                    hướng nhận
+                                    định</a></li>
+                            <li><a class="disable_a"
+                                    href="http://localhost:3000/account/advantage/3/category/8">Nhịp
+                                    đập thị trường</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    {{/if}}
+                    {{#if (check_pemission 2) }}
+                    <li><a id="doanhnghiep">DOANH NGHIỆP</a>
+                        <ul class="dropdown">
+                            <li><a
+                                    href="http://localhost:3000/account/advantage/3/category/3">Bất
+                                    động sản</a>
+                            </li>
+                            <li><a
+                                    href="http://localhost:3000/account/advantage/3/category/4">Doanh
+                                    nghiệp niêm
+                                    yết</a></li>
+                            <li><a
+                                    href="http://localhost:3000/account/advantage/3/category/17">Đấu
+                                    giá đấu thầu</a></li>
+                        </ul>
+                    </li>
+                    {{else}}
+                    <li><a id="doanhnghiep" class="disable_a">DOANH NGHIỆP</a>
+                        <ul class="dropdown">
+                            <li><a class="disable_a"
+                                    href="http://localhost:3000/account/advantage/3/category/3">Bất
+                                    động sản</a>
+                            </li>
+                            <li><a class="disable_a"
+                                    href="http://localhost:3000/account/advantage/3/category/4">Doanh
+                                    nghiệp niêm
+                                    yết</a> </li>
+                            <li><a class="disable_a"
+                                    href="http://localhost:3000/account/advantage/3/category/17">Đấu
+                                    giá đấu thầu</a> </li>
+                        </ul>
+                    </li>
+                    {{/if}}
+
+                    {{#if (check_pemission 3) }}
+                    <li><a id="taichinh">TÀI CHÍNH</a>
+                        <ul class="dropdown">
+                            <li><a
+                                    href="http://localhost:3000/account/advantage/3/category/5">Ngân
+                                    hàng điện
+                                    tử</a></li>
+                            <li><a
+                                    href="http://localhost:3000/account/advantage/3/category/6">Thương
+                                    mại điện
+                                    tử</a></li>
+                        </ul>
+                    </li>
+                    {{else}}
+                    <li><a class="disable_a" id="taichinh">TÀI CHÍNH</a>
+                        <ul class="dropdown">
+                            <li>
+                                <a class="disable_a"
+                                    href="http://localhost:3000/account/advantage/3/category/5">
+                                    Ngân hàng điện tử
+                                </a>
+                            </li>
+                            <li>
+                                <a class="disable_a"
+                                    href="http://localhost:3000/account/advantage/3/category/6">
+                                    Thương mại điện tử
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{/if}}
+                    {{#if (check_pemission 4) }}
+                    <li><a id="kienthucdautu">Kiến thức đầu tư</a>
+                        <ul class="dropdown">
+                            <li><a
+                                    href="http://localhost:3000/account/advantage/3/category/18">Cẩm
+                                    nang đầu tư</a></li>
+                            <li><a
+                                    href="http://localhost:3000/account/advantage/3/category/19">Khởi
+                                    nghiệp</a></li>
+                        </ul>
+                    </li>
+                    {{else}}
+                    <li><a class="disable_a" id="kienthucdautu">Kiến thức đầu tư</a>
+                        <ul class="dropdown">
+                            <li>
+                                <a class="disable_a"
+                                    href="http://localhost:3000/account/advantage/3/category/18">
+                                    Cẩm nang đầu tư
+                                </a>
+                            </li>
+                            <li>
+                                <a class="disable_a"
+                                    href="http://localhost:3000/account/advantage/3/category/19">
+                                    Khởi nghiệp
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{/if}}
+
+                    <li><a href="/account/advantage/3/watingforpublic">Chờ xuất bản</a></li>
+                  
+                    <li><a href="/account/advantage/3/refuse">Từ chối duyệt</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Header Section Begin -->
+        <header class="header-section" style="background-color: #161253;">
+            <div class="header__info">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="header__logo">
+                                <a href="/"><img style="width: 100px;
+                                        margin-top:-30px" src="/img/logo.png"
+                                        alt=""></a>
+                            </div>
+                        </div>
+                        <div class="col-xl-">
+                            <nav class="header__menu">
+                                <ul>
+                                    <li><a
+                                            href="http://localhost:3000/account/advantage/3">TRANG
+                                            CHỦ</a></li>
+                                    {{#each lcCats}}
+                                    {{#if (check_pemission ID) }}
+                                    <li class="nav-item">
+                                        <a class="nav-link cat" style="color:
+                                            white;"
+                                            id="navbarDropdown"
+                                            role="button" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            {{tc_Name}} &nbsp;<i class="fa
+                                                fa-angle-down text-primary"></i>
+                                        </a>
+                                        <ul class="dropdown">
+                                            {{#each categories}}
+                                            <li class="nav-item"> <a
+                                                    href="http://localhost:3000/account/advantage/3/category/{{ID}}">{{c_Name}}</a></li>
+                                            {{/each}}
+                                        </ul>
+                                    </li>
+                                    {{else}}
+                                    <li class="nav-item disable_a">
+                                        <a class="nav-link cat" style="color:
+                                            white;"
+                                            id="navbarDropdown"
+                                            role="button" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            {{tc_Name}} &nbsp;<i class="fa
+                                                fa-angle-down text-primary"></i>
+                                        </a>
+                                        <ul class="dropdown">
+                                            {{#each categories}}
+                                            <li class="nav-item disable_a"> <a
+                                                    href="http://localhost:3000/account/advantage/3/category/{{ID}}">{{c_Name}}</a></li>
+                                            {{/each}}
+                                        </ul>
+                                    </li>
+                                    {{/if}}
+                                    {{/each}}
+
+                                    
+                                    <li><a>Khác &nbsp;<i class="fa
+                                                fa-angle-down text-primary"></i></a>
+                                        <ul class="dropdown">
+                                            <li><a
+                                                    href="/account/advantage/3/watingforpublic">Chờ
+                                                    xuất bản</a></li>
+                                            <li><a href="/account/advantage/3/published">Đã xuất bản</a></li>
+                                            <li><a
+                                                    href="/account/advantage/3/refuse">Từ
+                                                    chối duyệt</a></li>
+                                        </ul>
+                                    </li>
+
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="canvas__open">
+                        <span class="fa fa-bars"></span>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+        <div style="margin-top:100px;">
+            {{{body}}}
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <!--<script src="/js/jquery-3.3.1.min.js"></script>-->
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/jquery.slicknav.js"></script>
+        <script src="/js/owl.carousel.min.js"></script>
+        <script src="/js/main.js"></script>
+        {{{_sections.js}}}
+    </body>
+
+</html>

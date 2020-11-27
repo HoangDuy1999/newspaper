@@ -1,0 +1,75 @@
+{{#section 'js'}}
+    <script>
+        $('#newpass').on('submit', function (e) {
+            e.preventDefault();
+            validate();
+        })
+        function scorePassword(pass) {
+            var score = 0;
+            if (!pass)
+                return score;
+            var letters = new Object();
+            for (var i=0; i<pass.length; i++) {
+                letters[pass[i]] = (letters[pass[i]] || 0) + 1;
+                score += 5.0 / letters[pass[i]];
+            }
+            var variations = {
+                digits: /\d/.test(pass),
+                lower: /[a-z]/.test(pass),
+                upper: /[A-Z]/.test(pass),
+                nonWords: /\W/.test(pass),
+            }
+            variationCount = 0;
+            for (var check in variations) {
+                variationCount += (variations[check] == true) ? 1 : 0;
+            }
+            score += (variationCount - 1) * 10;
+
+            return parseInt(score);
+        }
+        function validate(){
+            const password = $('#password').val();
+            const cf_password = $('#cf_password').val();
+            if(password == ""){
+                alert("Mật khẩu không được rỗng.");
+                return false;
+            }
+            if(password.length < 6){
+                alert("Mật khẩu phải từ 6 ký tự.");
+                return false;
+            }
+            if(password.length > 24){
+                alert("Mật khẩu tối đa có 24 ký tự.");
+                return false;
+            }
+            if(scorePassword(password) <= 30){
+                alert("Mật khẩu yếu");
+                return false;
+            }
+            if(password != cf_password){
+                alert('Xác nhận lại mật khẩu không đúng.');
+                return false;
+            }
+             $('#newpass').off('submit').submit();
+        }
+    </script>
+{{/section}}
+<div class="container" style="margin-top: 60px; margin-bottom:60px">
+    <div class="row">
+        <div class="col-sm-6 mx-auto">
+            <h2 class="text-center" style="font-weight: bold;">Mật Khẩu Mới </h2>
+
+            <form id="newpass" method="POST" class="form">
+            <div class="form-group">
+                <label>Mật khẩu</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu mới">
+            </div>
+            <div class="form-group">
+                <label>Xác nhận lại mật khẩu</label>
+                <input type="password" class="form-control" id="cf_password" name="cf_password" placeholder="Xác nhận lại mật khẩu.">
+            </div>
+            <button style="width:100%" type="submit" class="btn btn-primary">Submit</button>
+            </form> 
+        </div> 
+    </div>
+</div>

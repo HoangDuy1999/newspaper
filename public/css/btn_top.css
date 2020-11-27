@@ -1,0 +1,27 @@
+a.on_top {
+    opacity: 0.6;
+    display: none;
+}
+
+a.on_top:hover {
+    background-color: #007bb6;
+    color: #fff;
+    border: 1px solid #007bb6;
+    opacity: 1;
+}
+
+a.on_top i {
+    font-size: 20px;
+}
+
+a.on_top {
+    border-radius: 6px;
+    background-color: #333333;
+    padding: 10px 20px;
+    white-space: nowrap;
+    color: #fff;
+    position: fixed;
+    bottom: 75px;
+    right: 30px;
+    height: 44px;
+}

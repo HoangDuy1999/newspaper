@@ -1,0 +1,38 @@
+    <div class="container">
+         <h1 class="text-center text-primary">Thông tin bài viết</h1>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tiêu đề</th>
+                <th scope="col">Tình Trạng</th>
+                <th scope="col">Ghi chú</th>
+                <th scope="col">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each this.rows}}
+                    <tr>
+                        <th>{{id}}</th>
+                        <td>{{title}}</title></td>
+                        <td>{{asts_name}}</td>
+                        <td>{{note}}</td>
+                        <td>
+                             <a class="btn btn-primary btn-sm" href="/account/advantage/2/newspaper/tablenewspaper/detail?isedit=false&id={{id}}" role="button" title="Xem chi tiết">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </a>
+                            {{#if (isedit sts_id) }}
+                                <a class="btn btn-info btn-sm" href="/account/advantage/2/newspaper/tablenewspaper/detail?isedit=true&id={{id}}" role="button" title="Chỉnh sửa">
+                                    <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                                </a>
+                            {{else}}
+                                <a style="color: currentColor;opacity: 0.5;text-decoration: none;pointer-events: none;" class="btn btn-info btn-sm" href="" role="button" title="Chỉnh sửa">
+                                    <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                                </a>
+                            {{/if}}
+                        </td>
+                    </tr>  
+                 {{/each}}      
+            </tbody>
+        </table>
+    </div>

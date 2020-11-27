@@ -1,0 +1,228 @@
+{{#section 'css'}}
+<script
+    src="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"></script>
+{{/section}}
+{{#section 'js'}}
+
+
+
+<script>
+    $(document).ready(function() {
+     
+    // Cấu hình các nhãn phân trang
+    $('#BangTTBai').dataTable( {
+        "language": {
+        "sProcessing":   "Đang xử lý...",
+        "sLengthMenu":   "Xem _MENU_ mục",
+        "sZeroRecords":  "Không tìm thấy dòng nào phù hợp",
+        "sInfo":         "Đang xem _START_ - _END_ trong _TOTAL_ mục",
+        "sInfoEmpty":    "Đang xem 0 đến 0 trong tổng số 0 mục",
+        "sInfoFiltered": "(được lọc từ _MAX_ mục)",
+        "sInfoPostFix":  "",
+        "sSearch":       "Tìm:",
+        "sUrl":          "",
+        "oPaginate": {
+            "sFirst":    "Đầu",
+            "sPrevious": "Trước",
+            "sNext":     "Tiếp",
+            "sLast":     "Cuối"
+            }
+        }
+    } );
+         
+    } ); 
+  </script>
+<script>
+    $(document).ready(function () {
+        $("#BangTTBai").on("click", ".delBai", function (event) {
+            var $row = $(this).closest("tr");
+            $("#_IDBai").text($row.find("#id_modal").text());
+            $("#IDBai").val($row.find("#id_modal").text());
+
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#BangTTBai").on("click", ".xuatban", function (event) {
+            var $row = $(this).closest("tr");
+            $("#id").val($row.find("#id_modal").text());
+        });
+    });
+
+
+    $('#frmmodal').on('submit', function (e) {
+        e.preventDefault();
+        validate();
+    })
+    function validate() {
+        const title_alias = $('#title_alias').val();
+        if (title_alias == "") {
+            alert("Đường dẫn bài viết không được trống.");
+            return false;
+        }
+        $.getJSON(`/account/advantage/3/is-available?alias=${title_alias}`, function (data) {
+            if (data) {
+                $('#frmmodal').off('submit').submit();
+            } else {
+                alert('đường dẫn alias đã tồn tại');
+            }
+        })
+    }
+</script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script
+    src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+{{/section}}
+<div class="container justify-content-sm-center">
+    <h3 style="text-align: center;" class="mb-5 text-danger">DANH SÁCH BÀI BÁO</h3>
+    <table class="table table-hover table-striped table-responsive"
+        id="BangTTBai" style="text-align: center;">
+        <a class="btn btn-outline-success mb-2" style="float:left;margin-top:
+            -5%;" href="/admin/article/add" role="button">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Thêm bài
+        </a>
+        <thead class="thead-dark">
+            <tr>
+                <th>STT</th>
+                <th style="min-width:150px;">Chuyên mục</th>
+                <th style="min-width:100px;">Trạng thái</th>
+                <th style="max-width:700px;">Tiêu đề</th>
+                <th style="min-width:115px;">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each this.list}}
+            <tr class="text-primary">
+                <td id="id_modal">{{id}}</td>
+                <td>{{c_Name}}</td>
+                <td>{{asts_name}}</td>
+                <td style="max-width:550px;">{{title}}</td>
+                <td>
+                    <div class="row">
+                        <a class="btn btn-warning btn-sm mr-2"
+                            href="/admin/article/edit/{{id}}" role="button"
+                            title="Chỉnh sửa">
+                            <i class="fa fa-edit" aria-hidden="true"></i>
+                        </a>
+                        <a class="btn btn-primary btn-sm"
+                            href="/admin/article/details/{{id}}"
+                            role="button"
+                            title="Chi tiết">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+
+                        {{#if (isedit sts_id) }}
+                        <button type="button" class="xuatban btn btn-primary
+                            btn-sm ml-2" data-toggle="modal"
+                            title="xuất bản" data-target="#exampleModal">
+                            <i class="fa fa-check-square" aria-hidden="true"></i>
+                        </button>
+                        {{else}}
+                        <button type="button"
+                            style="opacity: 0.5;text-decoration:
+                            none;pointer-events: none;"
+                            class="xuatban btn btn-primary btn-sm ml-2"
+                            data-toggle="modal" title="xuất bản"
+                            data-target="#exampleModal">
+                            <i class="fa fa-check-square" aria-hidden="true"></i>
+                        </button>
+                        {{/if}}
+                        <a class="btn btn-danger btn-sm mr-2 delBai"
+                            style="margin-left: 5%;"
+                            href="javascript;;" role="button"
+                            title="Xóa bài viết" data-toggle="modal"
+                            data-target="#exampleModal1">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">XÓA BÀI VIẾT</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input hidden name="ID" type="text" id="IDBai" />
+                    <p style="font-size: 20px;">Bạn có chăc muốn xóa bài viết
+                        có <b>id = <span
+                                id="_IDBai"></span></b>
+                        không?Hãy cẩn thận trước khi xóa nhé!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" formaction="/admin/article/delArticle"
+                        class="btn btn-danger">Xóa
+                        bài</button>
+                </form>
+                <button type="button" class="btn btn-warning"
+                    data-dismiss="modal">Thoát</button>
+            </div>
+        </div>
+</div>
+    </table>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xuất Bản</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"
+                    style="background-image:
+                    url('https://i.ytimg.com/vi/mubt_h9NRn4/maxresdefault.jpg');
+                    background-position: right; background-size: cover;">
+                    <form method="POST" id="frmmodal">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" style="color: red;
+                                font-weight:bold">Id</label>
+                            <input id="id" name="id" type="text"
+                                class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label style="color: red; font-weight:bold">Đường
+                                dẫn alias(đường dẫn vô bài viết)</label>
+                            <textarea class="form-control" name="title_alias"
+                                id="title_alias"
+                                placeholder="dai-dich-co-vid-19-bat-nguon-tu-trung-quoc--..."
+                                rows="2"></textarea>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input"
+                                id="featured" name="featured">
+                            <label class="form-check-label" for="exampleCheck1"
+                                style="color:green; font-weight:bold">Featured</label>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input"
+                                id="isPremium" name="isPremium" checked>
+                            <label class="form-check-label" for="exampleCheck2"
+                                style="color:green; font-weight:bold">Premium</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Xuất bản</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
+                </div>
+            </div>
+    </div>
+</div

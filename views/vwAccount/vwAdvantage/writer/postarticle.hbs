@@ -1,0 +1,283 @@
+{{#section 'css'}}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css">
+{{/section}}
+<div class="container-fluid" style=" margin-top:-25px; 
+            background-image: url('https://blog.visme.co/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-08.jpg');
+            background-repeat: no-repeat; background-size: cover;">
+    <h1 class="text-center">Viết bài báo</h1>
+    <div class="container" style="margin-top: 15px; margin-bottom:15px;">
+        <form id="frmpostwriter" action="/account/advantage/2/write" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="text" name="id_article" value="{{row.id}}" hidden />
+                <input type="text" name="url_img" value="{{row.images}}" hidden />
+                <label style="font-weight: bold; font-size: 18px">Chuyên mục:</label>
+                <select class="custom-select" name="c_ID" id="c_ID">
+                    {{#each this.category}}
+                        {{#if selected}}
+                            <option selected value="{{ID}}">{{c_Name}}</option>
+                        {{else}}
+                            <option value="{{ID}}">{{c_Name}}</option>                  
+                        {{/if}}
+                    {{/each}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label style="font-weight: bold; font-size: 18px">Tiêu đề:</label>
+                <input type="text" value="{{row.title}}" name="title" id="title" class="form-control" placeholder="nhập tiêu đề">
+            </div>
+            <div class="form-group">
+                <label style="font-weight: bold; font-size: 18px">Ảnh đại điện(bài viết):</label><br>
+                <div class="file-loading">
+                    <input id="images" name="images" value="{{row.images}}" type="file" accept="image/*">
+                </div>
+            </div>
+            <div class="form-group">
+                <label style="font-weight: bold; font-size: 18px">Tóm tắt:</label>
+                <textarea class="form-control" name="abstract" id="abstract" placeholder="nhập nội dung" rows="5">{{row.abstract}}</textarea>
+            </div>
+            <div class="form-group">
+                  <label style="font-weight: bold; font-size: 18px">Nội dung bài viết:</label>
+                  <textarea name="content" id="content" class="form-control" cols="30" rows="10">{{row.content}}</textarea>
+            </div>
+            <div class="form-group">
+                {{#if status }}
+                {{else}}
+                    <label style="font-weight: bold; font-size: 18px">Nhãn bài viết:</label>
+                    <input readonly value="{{alltag}}" type="text" class="form-control" placeholder="vd: abc;bcd;cde;">
+                {{/if}} 
+            </div>
+            <div class="form-group">
+                {{#if status }}
+                    <label style="font-weight: bold; font-size: 18px; ">Gắn nhãn bài viết: </label>
+                {{else}}
+                    <label {{#if isedit}} {{else}} hidden {{/if}} style="font-weight: bold; font-size: 18px; ">Thay đổi bộ nhãn mới: </label>
+                {{/if}} 
+                <a {{#if isedit}} {{else}} hidden {{/if}} class="btn btn-primary" style="width:25px; height:25px;padding:0" title="thêm thẻ tab" data-toggle="modal" data-target="#exampleModal" >
+                    <i class="fa fa-plus" style="color: white;" aria-hidden="true"></i>
+                </a>
+                <br>
+                <select {{#if isedit}} {{else}} hidden {{/if}} name="tags" id="tags" class="whatever" style="height: 220px;" multiple>
+                    {{#each tags}}
+                        <option value="{{ID}}">{{Name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+                {{#if id}}
+                    <a href="/account/advantage/2/newspaper/tablenewspaper?type={{row.sts_id}}" class="btn btn-success">
+                        <i class="fa fa-backward" aria-hidden="true"></i>
+                            Trở lại 
+                    </a>
+                    {{#if isedit}}  
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            Lưu lại
+                        </button>  
+                    {{/if}}
+                {{else}}
+                    <a href="/account/advantage/2" class="btn btn-success mb-4">
+                        <i class="fa fa-backward" aria-hidden="true"></i>
+                        Trở lại 
+                    </a>  
+                    <button type="submit" class="btn btn-primary mb-4">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                        Lưu lại
+                    </button>  
+                {{/if}}
+            </div>     
+        </form>
+    </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Thêm thẻ tag</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST" id="addtag">
+            <label>Tên thẻ tag:</label> <br>
+                <input type="text" id="tagname" class="w-100" placeholder="tên thẻ tab" /><br>
+            <label>Tên chuẩn hóa:</label><br>
+                <input type="text" id="tagalias" class="w-100" placeholder="the-tab" />
+             <button type="submit" class="btn btn-primary mt-2">Lưu lại</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{#section 'js'}}
+
+<script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.2/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fa/theme.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/locales/vi.min.js"></script>
+
+    <script>
+        if("{{{row.images}}}" != ""){
+            $('#images').fileinput({
+                theme: 'fa',
+                showCaption: true,
+                dropZoneEnabled: true,
+                allowedFileExtensions: ['png', 'jpg', 'gif'],
+                language: 'vi',
+                /*defaultPreviewContent: */initialPreview:'<img src="/article/{{{row.images}}}" width=200px name="images" id="imagesk" alt="Your Avatar">',
+             });
+        }else{
+            $('#images').fileinput({
+                theme: 'fa',
+                showCaption: true,
+                dropZoneEnabled: true,
+                allowedFileExtensions: ['png', 'jpg', 'gif'],
+                language: 'vi',
+    
+             });
+        }
+
+        tinymce.init({
+            selector: '#content',
+            height: 450,
+            plugins: 'paste image link autolink lists table media',
+            menubar: false,
+            toolbar: [
+            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor | table link image media',
+            ],
+            image_title: true, 
+            // enable automatic uploads of images represented by blob or data URIs
+            automatic_uploads: true,
+            // add custom filepicker only to Image dialog
+            file_picker_types: 'image',
+            file_picker_callback: function(cb, value, meta) {
+                var input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.setAttribute('accept', 'image/*');
+
+                input.onchange = function() {
+                var file = this.files[0];
+                var reader = new FileReader();
+                
+                reader.onload = function () {
+                    var id = 'blobid' + (new Date()).getTime();
+                    var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                    var base64 = reader.result.split(',')[1];
+                    var blobInfo = blobCache.create(id, file, base64);
+                    blobCache.add(blobInfo);
+
+                    // call the callback and populate the Title field with the file name
+                    cb(blobInfo.blobUri(), { title: file.name });
+                };
+                reader.readAsDataURL(file);
+                };
+                
+                input.click();
+            }
+        });
+    </script>
+    <script>
+        var sel = $('#tags');
+        var selected = sel.val(); // cache selected value, before reordering
+        var opts_list = sel.find('option');
+        opts_list.sort(function(a, b) { return $(a).text() > $(b).text() ? 1 : -1; });
+        sel.html('').append(opts_list);
+        sel.val(selected); // set cached selected value
+
+        $('#frmpostwriter').on('submit', function (e) {
+            e.preventDefault();
+            validate();
+        })
+
+        $('#addtag').on('submit', function (e) {
+            e.preventDefault();
+            validate_addtag();
+        })
+        function validate(){
+            const title = $('#title').val();
+            const abstract = $('#abstract').val();
+            const images = $('#images').val();
+            const content = $('#content').val();
+            var selected_tags = $('#tags').val();
+            if(title == ""){
+                alert("Tiêu đễ không được rỗng.");
+                return false;
+            }
+            if(title.length < 10){
+                alert("Tiêu đễ phải lớn hơn 10 kí tự");
+                return false;
+            }
+            if(title.length > 200){
+                alert("Tiêu đề tối đa 200 ký tự.");
+                return false;
+            }
+            if(abstract.length ==""){
+                alert("Tóm tắt không được rỗng");
+                return false;
+            }
+            if(abstract.length < 200){
+                alert("Tóm tắt phải từ 200 ký tự");
+                return false;
+            }
+            if(abstract.length > 1000){
+                alert("Tóm tắt tối đa có 1000 ký tự");
+                return false;
+            }
+            if(images == "" && "{{{row.images}}}" == ""){
+                alert("Ảnh bìa không được rỗng.");
+                return false;
+            }
+            if(selected_tags == "" && "{{{row.id}}}" == ""){
+                alert("Vui lòng gắn nhãn bài viết.");
+                return false;
+            }
+            if(content == ""){
+                alert("Nội dung bài viết không được rỗng.");
+                 return false;
+            }
+            if(content.length < 500){
+                alert("Nội dung bài viết phải từ 500 ký tự.");
+                 return false;
+            }
+            if(content.length > 100000){
+                alert("Nội dung bài tối đa của bài viết là 100000 ký tự.");
+                 return false;
+            }
+            $('#frmpostwriter').off('submit').submit();
+         }
+
+        function validate_addtag(){
+            const tagname = $('#tagname').val();
+            const tagalias = $('#tagalias').val();
+
+            if(tagname == ""){
+                alert("Tên thẻ tag không được rỗng.");
+                return false;
+            }
+            if(tagalias == ""){
+                alert("Tên chuản hóa thẻ tag không được rỗng.");
+                return false;
+            }
+            $.getJSON(`/account/advantage/2/write/is_valueable?Name=${tagname}&tg_alias=${tagalias}`, function (data) {
+                    if(data > 0){
+                        alert("Thêm thành công");
+                        var x = document.getElementById("tags");
+                        var option = document.createElement("option");
+                        option.text = tagname;
+                        option.value = data;
+                        x.add(option);
+                    }
+                    else{
+                        alert("Thẻ tag đã tồn tại");
+                    }
+                    return false;
+            })
+            return false;
+
+            $('#addtab').off('submit').submit();
+         }
+    </script>
+{{/section}}
+

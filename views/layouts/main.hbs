@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{{title}}</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" type="image/x-icon" href="./img/logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../../img/logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/../img/logo.png">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
+
+
+    <link href="/css/index.css" rel="stylesheet">
+    <link href="/css/btn_top.css" rel="stylesheet">
+    
+    <link href="/css/login.css" rel="stylesheet">
+    <link href="/css/register.css" rel="stylesheet">
+    {{{_sections.css}}}
+</head>
+
+<body>
+    <div id="header">
+        <!--logout -->
+        <form id="frmLogout" action="/account/logout" method="POST"></form>
+        <div id="quick-contact">
+            <ul class="col-sm-12 col-md-12 col-xs-12">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-xs-12 ">
+                            <div class="row">
+                                <li class="quick-call col-sm-3 col-md-3 col-xs-12"><a href="tel:0345870xxx">0345.870.xxx
+                                    </a></li>
+                                <li class="quick-email col-sm-3 col-md-3 col-xs-12"><a
+                                        href="mailto:cskh@tradebull.vn">cskh@tradebull.vn</a></li>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xs-12 ">
+                            {{#if lcIsAuthenticated}}
+                            <li style="float: right;  width: auto;">
+                                <!-- Nếu mà có session tài khoản đã đk thì hiện lên mục này.Còn không thì ẩn (tức logout ồi hay chưa đăng nhập) -->
+                                <div class="btn-group col-sm-12 col-md-6 col-xs-12">
+                                    <button type="button" style="height: 40px;margin-top:-1px"
+                                        class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                        Xin chào {{lcAuthUser.username}}
+                                    </button>
+                                    <div class="dropdown-menu">
+
+                                        <a class="dropdown-item" href="/account/profile">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                            Proflie
+                                        </a>
+                                        {{#if permission}}
+                                        <a class="dropdown-item" href="/account/advantage">
+                                            <i class="fa fa-table" aria-hidden="true"></i>
+                                            Chức năng nâng cao
+                                        </a>
+                                        {{/if}}
+                                        <div class="dropdown-divider"></div>
+
+                                        <a class="dropdown-item" href="javascript: $('#frmLogout').submit()">
+                                            <i class="fa fa-sign-out-alt"></i>
+                                            Đăng xuất
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            {{else}}
+
+                            <li class="quick-login col-sm-12 col-md-3 col-xs-12">
+                                <a href="/account/login"><i class="fa fa-user-circle" aria-hidden="true"></i> Đăng
+                                    nhập</a>
+                            </li>
+                            <li class="quick-register col-sm-12 col-md-3 col-xs-12"><a href="/account/register"><i
+                                        class="fa fa-user-plus" aria-hidden="true"></i>
+                                    Đăng ký</a>
+                            </li>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </ul>
+        </div>
+
+
+        <div class="header-container">
+            <div class="header-top">
+                <div class="container">
+                    <div class="row col-sm-12 col-md-12 col-xs-12">
+                        <div class="col-sm-4 col-md-7 col-xs-12">
+                            <!-- Header Logo -->
+                            <div class="logo">
+                                <a title="e-commerce" href="/"> </a>
+                                <div class="form-group-row ">&nbsp;
+                                    <a href="/" rel="home">
+                                        <img src="/img/logo.png" style="width:200px;" alt="thong-bo-chon-SEO" />
+                                    </a>
+                                </div>
+                                &nbsp;
+                            </div>
+                            <!-- End Header Logo -->
+                        </div>
+
+                        <div class="col-sm-12 col-md-5 col-xs-12 mt-5 ">
+                                <div class="row">
+                                    <div class="form-group mr-1">
+                                        <input type="text" class="form-control"  name="key" id="key"
+                                            placeholder="Từ khóa tìm kiếm..">
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-dark" onclick="validatesearch()">
+                                            <i class="fa fa-search center-right"></i>
+                                        </button></div>
+                                </div>
+                            <!--</form>-->
+                        </div>
+                        {{!-- <div class="col-md-4 col-xs-12 col-sm-4 mt-4">
+                            <p id="deploy99"></p>
+                        </div> --}}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-xl navbar-dark " style="background-color: #162245;">
+        <div class="container">
+            <button class="navbar-toggler d-xl-none" type="button" data-toggle="collapse"
+                data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: white;" href="/"><i class="fa fa-home" aria-hidden="true"></i>
+                            Trang Chủ<span class="sr-only">(current)</span></a>
+                    </li>
+                    {{#each lcCats}}
+                    <li class="nav-item">
+                        <a class="nav-link cat" style="color: white;" href="/categories/{{alias}}" id="navbarDropdown"
+                            role="button" aria-haspopup="true" aria-expanded="false">
+                            {{tc_Name}} &nbsp;<i class="fa fa-angle-down text-primary"></i>
+                        </a>
+                        <ul class="dropdown">
+                            {{#each categories}}
+                            <li class="nav-item"> <a href="/categories/{{tc_alias}}/{{c_alias}}">{{c_Name}}</a></li>
+                            {{/each}}
+                        </ul>
+                    </li>
+                    {{/each}}
+                    <li class="nav-item"><a href="/lien-he" class="nav-link" style="color: white;" id="contact"> Liên
+                            Hệ</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+    {{{body}}}
+    <div class="jumbotron text-center mb-0" id="footer">
+        © Copyright 2020, All rights reserved. Design by The deploy99
+        
+    </div>
+    <a id="on_top" class="on_top" href="#top" style="display: block;"><i class="fa-arrow-circle-up fa"></i></a>
+
+    <!-- menu -->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script>
+        var today = new Date();
+        var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var dateTime = date + ',Cập nhật lúc ' + time + ' GMT+7';
+        document.getElementById("deploy99").innerHTML = dateTime;
+    </script>
+    <script type="text/javascript" src="./js/jquery.flexisel.js"></script>
+    <script type="text/javascript" src="./js/btn_top.js"></script>
+    <script type="text/javascript" src="./js/jquery.marquee.js"></script>
+    <script>
+        function validatesearch(){
+            const key = $('#key').val();
+            if(key == ""){
+                alert("từ khóa tìm kiếm không được rỗng.");
+            }else{
+                location.replace("http://localhost:3000/article/search?key=" + key);
+            }
+        }
+    </script>
+    {{{_sections.js}}}
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<div class="container">
+    {{#if this.empty}}
+    <div class="card-body">
+        <h5 class="card-text text-danger">Nhãn này không có dữ liệu đến bài viết</h5>
+    </div>
+    {{else}}
+    <div class="row mt-5">
+        <div class="col-5 mb-5">
+            <h5 style="color: blue;">CHI TIẾT NHÃN</h5>
+            {{#each this.single}}
+            <div><b>Mã nhãn:</b> {{ID}}</div>
+            <div><b>Tên nhãn:</b> <i>{{Name}}</i></div>
+            <div><b>Bí danh: </b> {{tg_alias}}</div>
+            {{/each}}
+        </div>
+        <div class="col-7 mb-5">
+            <h5 style="color: blue;">CÁC BÀI VIẾT CÓ CÙNG NHÃN</h5>
+            {{#each this.list}}
+            <div><b>Tên bài viết:</b> {{title}}</div>
+            <div><img src="/article/{{images}}" alt="{{c_Name}}" title="{{id}}: {{title}}" 
+            class="card-img-top  mr-1 mt-1"
+                style="width:250px;height:200px"></div>
+            <div><b>Tên nhãn:</b> <i>{{Name}}</i></div>
+            <div><b>Bí danh: </b> {{tg_alias}}</div>
+            <hr>
+            {{/each}}
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="col-6 mt-5 mb-5">
+            <h5 style="color:forestgreen;">SỬA ĐỔI THÔNG TIN NHÃN</h5>
+            {{#each this.single}}
+            <a class="btn btn-warning ml-3 mt-2 mb-2" href="/admin/tag/edit/{{ID}}" role="button"
+                title="chỉnh sửa nhãn">
+                <i class="fas fa-wrench" aria-hidden="true"></i>
+                Sửa thông tin
+            </a>
+            <a class="btn btn-success ml-3 mt-2 mb-2" href="/admin/tag" role="button" title="Trở về danh sách nhãn">
+                <i class="fa fa-backward" aria-hidden="true"></i>
+                Trở về
+            </a>
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
+</div>

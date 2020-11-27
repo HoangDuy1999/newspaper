@@ -1,0 +1,36 @@
+
+<div class="container">
+    <div class="row mt-5">
+            {{#each this.list}}
+            <div class="col-6 ">
+                <h5 style="color: blue" >HÌNH CHUYÊN MỤC</h5>
+                <div><img src="/admin/img/{{c_images}}" alt="{{c_Name}}" title="{{ID}}: {{c_Name}}"
+                    class="card-img-top  mr-1 mt-1" style="width:380px;height:380px"></div>
+            </div>
+            <div class="col-6 mb-5">
+                <h5 style="color: blue;">CHI TIẾT CHUYÊN MỤC</h5>
+                <div><b>Mã chuyên mục:</b> {{ID}}</div>
+                <div><b>Tên hội nghị:</b> <i>{{c_Name}}</i></div>
+                <div><b>Bí danh: </b> {{c_alias}}</div>
+                <div><b>Chuyên mục cha:</b> {{{c_Large}}}</div>
+              
+               
+            </div>
+            {{/each}}
+    </div>
+    <div class="row">
+        {{#each this.list}}
+        <div class="col-6 mt-5 mb-5">
+            <h5 style="color:forestgreen;">SỬA ĐỔI THÔNG TIN CHUYÊN MỤC</h5>
+            <a class="btn btn-warning ml-3 mt-2 mb-2" href="/admin/categories/edit/{{ID}}" role="button" title="Edit Conference">
+                <i class="fas fa-wrench" aria-hidden="true"></i>
+                Sửa thông tin 
+            </a>
+            <a class="btn btn-success ml-3 mt-2 mb-2" href="/admin/categories" role="button" title="Edit Conference">
+            <i class="fa fa-backward" aria-hidden="true"></i>
+                Trở về chuyên mục
+            </a>
+        </div>
+        {{/each}}
+    </div>
+</div>

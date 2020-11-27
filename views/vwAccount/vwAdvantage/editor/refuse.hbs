@@ -1,0 +1,74 @@
+{{#section 'css'}}
+<script src="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"></script>
+<style>
+.dataTables_filter{
+    float: right;
+}
+.pagination
+{
+    float: right;
+}
+</style>
+
+{{/section}}
+{{#section 'js'}}
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+ 
+  <script>
+    $(document).ready(function() {
+     
+    // Cấu hình các nhãn phân trang
+    $('#BangTTSanPham').dataTable( {
+        "language": {
+        "sProcessing":   "Đang xử lý...",
+        "sLengthMenu":   "Xem _MENU_ mục",
+        "sZeroRecords":  "Không tìm thấy dòng nào phù hợp",
+        "sInfo":         "Đang xem _START_ đến _END_ trong tổng số _TOTAL_ mục",
+        "sInfoEmpty":    "Đang xem 0 đến 0 trong tổng số 0 mục",
+        "sInfoFiltered": "(được lọc từ _MAX_ mục)",
+        "sInfoPostFix":  "",
+        "sSearch":       "Tìm:",
+        "sUrl":          "",
+        "oPaginate": {
+            "sFirst":    "Đầu",
+            "sPrevious": "Trước",
+            "sNext":     "Tiếp",
+            "sLast":     "Cuối"
+            }
+        }
+    } );
+         
+    } ); 
+  </script> 
+{{/section}}
+
+<div class="container" style="margin-top: 12%;">
+ <h3 style="text-align: center; margin-top: 12%;" class="mb-3">Danh Sách Bài Viết</h3>
+    <table class="table table-bordered text-center" id="BangTTSanPham">
+    <thead>
+        <tr class="text-center">
+            <th>Id</th>
+            <th style="min-width: 400px;">Tiêu Đề</th>
+            <th style="min-width:120px">Tình Trạng</th>
+            <th style="min-width:250px">Lý Do</th>
+            <th style="min-width:110px">Thao Tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each rows}}
+            <tr>
+                <th scope="row" id="id_modal">{{id}}</th>
+                <td>{{title}}</td>
+                <td>Bị từ chối</td>
+                <td>{{note}}</td>
+                <td>
+                    <a class="btn btn-info btn-sm" href="/account/advantage/3/category/{{c_ID}}/{{id}}" role="button" title="Chỉnh sửa">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+        {{/each}}
+    </tbody>
+    </table>
+</div>

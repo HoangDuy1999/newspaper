@@ -1,0 +1,77 @@
+<div class="container" id="content">
+
+
+    <h1 class="display-4 text-center my-3">{{c_Large}}</h1>
+
+    <ul class="nav justify-content-center" id="sub-category-list">
+
+        <li class="nav-item">
+            <a class="nav-link" href="#">{{c_Name}}</a>
+        </li>
+    </ul>
+
+    <div class="row mt-5">
+        <div class="col-12" id="list-article">
+            {{#each list}}
+            <div class="d-flex">
+                <div class="row no-gutters align-items-strech">
+                    <div class="col-4">
+                        <div class="img-cont mr-3 mb-2">
+                            <img src="/article/{{images}}" alt="{{ID}}-{{title}}" title="{{c_Name}}: {{id}}-{{title}}"
+                                style="width: 330px;height:280px" class="card-img lazyload" alt="...">
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="">
+                            <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}" class="text-dark link_viewest">
+                                <h5 class="card-title">{{title}}</h5>
+                            </a>
+                            <h6 class="card-subtitle mb-2 text-muted d-none d-sm-block">
+                                <a href="/categories/{{tc_alias}}/{{c_alias}}"
+                                    class="article-category badge badge-primary mr-3">{{c_Name}}</a>
+                                <span class="article-date">
+                                    <i class="far fa-calendar-alt mr-1"></i>
+                                    {{format_DOB public_date}}
+                                </span>
+                            </h6>
+                            <h6 class="article-tags d-none d-sm-block">
+                                <i class="fas fa-tags mr-2"></i>
+                                <a href="#" class="badge badge-secondary">{{splitTitle tag }}&nbsp; x</a>
+                                <a href="#" class="badge badge-secondary">{{splitTitle1 tag }}&nbsp; x</a>
+                                <a href="#" class="badge badge-secondary">{{splitTitle2 tag }}&nbsp; x</a>
+
+                            </h6>
+                            <div class="card-text d-none d-md-block">
+                                {{abstract}}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            {{/each}}
+
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center mt-3">
+                    <li class="page-item disabled">
+                        <span class="page-link">Previous</span>
+                    </li>
+                    <li class="page-item active">
+                        <span class="page-link">
+                            1
+                        </span>
+                    </li>
+                    <li class="page-item"><a href="#" class="page-link">2</a>
+
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div> <!-- col-8-->
+    </div>
+</div>

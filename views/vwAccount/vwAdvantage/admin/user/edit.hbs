@@ -1,0 +1,363 @@
+
+    <h1 class="text-center">Chỉnh sửa thông tin tài khoản</h1>
+
+{{#section 'css'}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+<!-- some CSS styling changes and overrides -->
+    <style>
+    .kv-avatar .krajee-default.file-preview-frame,.kv-avatar .krajee-default.file-preview-frame:hover {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+        text-align: center;
+    }
+    .kv-avatar {
+        display: inline-block;
+    }
+    .kv-avatar .file-input {
+        display: table-cell;
+        width: 213px;
+    }
+    .kv-reqd {
+        color: red;
+        font-family: monospace;
+        font-weight: normal;
+    }
+    </style>
+ 
+{{/section}}
+
+{{#section 'js'}}
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/fileinput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fa/theme.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/locales/vi.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+    <script>
+        if("{{{row.DOB}}}" != "" && "{{{row.DOB}}}" != "Invalid date"){
+            $('#DOB').datetimepicker({
+                format: 'd/m/Y',
+                timepicker: false,
+                mask: true,
+                value: "{{{row.DOB}}}"
+            });
+        }else{
+             $('#DOB').datetimepicker({
+                format: 'd/m/Y',
+                timepicker: false,
+                mask: true,
+            });
+        }
+        $('#cre_Date').datetimepicker({
+                format: 'd/m/Y',
+                timepicker: false,
+                mask: true,
+                value: "{{{row.cre_Date}}}"
+        });
+        if("{{{row.date_create_premium}}}" != "Invalid date" && "{{{row.date_create_premium}}}" != ""){
+            $('#date_create_premium').datetimepicker({
+                format: 'd/m/Y h:m:s',
+                mask: true,
+                //"setDate": "{{{this.articledraft.public_date}}}"
+            });
+            $("#date_create_premium").val("{{{row.date_create_premium}}}");
+        }else{
+             $('#date_create_premium').datetimepicker({
+                format: 'd/m/Y h:m:s',
+                mask: true,
+            });
+            $("#date_create_premium").val("__/__/____ __:__:__");
+        }
+
+    </script>
+     <!-- the fileinput plugin initialization -->
+    <script>
+    if({{{row.url}}}){
+        $("#avatar-2").fileinput({
+          overwriteInitial: true,
+          showClose: false,
+          showCaption: false,
+          showBrowse: false,
+          browseOnZoneClick: true,
+          removeLabel: '',
+          removeIcon: '<i class="fas fa-times"></i>',
+          removeTitle: 'Cancel or reset changes',
+          elErrorContainer: '#kv-avatar-errors-2',
+          msgErrorClass: 'alert alert-block alert-danger',
+          defaultPreviewContent: '<img src="{{{row.Image}}}" name="Image" width="200" alt="Your Avatar"><h6 class="text-muted">Ấn vô để thay đổi</h6>',
+          layoutTemplates: {main2: '{preview} {remove} {browse}'},
+          allowedFileExtensions: ["jpg", "png", "gif"]
+        });
+    }else{
+        $("#avatar-2").fileinput({
+          overwriteInitial: true,
+          showClose: false,
+          showCaption: false,
+          showBrowse: false,
+          browseOnZoneClick: true,
+          removeLabel: '',
+          language: 'vi',
+          removeIcon: '<i class="fas fa-times"></i>',
+          removeTitle: 'Cancel or reset changes',
+          elErrorContainer: '#kv-avatar-errors-2',
+          msgErrorClass: 'alert alert-block alert-danger',
+          defaultPreviewContent: '<img src="/img/profile/{{{row.Image}}}" width="200"name="Image" alt="Your Avatar"><h6 class="text-muted">Ấn vô để thay đổi</h6>',
+          layoutTemplates: {main2: '{preview} {remove} {browse}'},
+          allowedFileExtensions: ["jpg", "png", "gif"]
+        });
+    }
+   
+    </script>
+    
+     <script>
+        $('#frmedit').on('submit', function (e) {
+            e.preventDefault();
+            validate();
+        })
+
+        function validateEmail(email) {
+            var re = new RegExp('^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$');
+                return re.test(email);
+        }
+        function scorePassword(pass) {
+            var score = 0;
+            if (!pass)
+                return score;
+
+            // award every unique letter until 5 repetitions
+            var letters = new Object();
+            for (var i=0; i<pass.length; i++) {
+                letters[pass[i]] = (letters[pass[i]] || 0) + 1;
+                score += 5.0 / letters[pass[i]];
+            }
+
+            // bonus points for mixing it up
+            var variations = {
+                digits: /\d/.test(pass),
+                lower: /[a-z]/.test(pass),
+                upper: /[A-Z]/.test(pass),
+                nonWords: /\W/.test(pass),
+            }
+
+            variationCount = 0;
+            for (var check in variations) {
+                variationCount += (variations[check] == true) ? 1 : 0;
+            }
+            score += (variationCount - 1) * 10;
+
+            return parseInt(score);
+        }
+        
+        function validate(){
+            const user = $('#username').val();
+            const ID = $('#ID').val();
+            const tc_ID = $('#tc_ID').val();
+            const passrd = $('#password').val();
+            const cf_passrd = $('#cf_password').val();
+            const Email = $('#Email').val();
+            const dob = $('#DOB').val();
+            const pseudonym = $('#pseudonym').val();
+            const r_ID = $('#r_ID').val();
+            const cre_Date = $('#cre_Date').val();
+            const date_create_premium = $('#date_create_premium').val();
+            const time_premium = $('#time_premium').val();
+            if(user.length < 8 ){
+                alert('Tên đăng nhập phải từ 8 ký tự.')
+                return false;
+            }
+            if(user.length > 25 ){
+                alert('Tên đăng nhập tối đa 25 ký tự.')
+                return false;
+            }
+            if(passrd.length != ""){ 
+                if(passrd.length < 8 ){
+                alert('Mật khẩu phải từ 8 ký tự');
+                return false;
+                }
+                if(passrd.length > 24 ){
+                    alert('Mật khẩu phải bé hơn 25 ký tự.');
+                    return false;
+                }
+                if(scorePassword(passrd) <=30){
+                    alert('Mật khẩu yếu.');
+                    return false;
+                }
+            }
+            if(passrd != cf_passrd){
+                alert('Xác nhận lại mật khẩu không khớp.')
+                return false;
+            }
+            if(!validateEmail(Email)){
+                alert('Email không hợp lệ.')
+                return false;
+            }
+            if(dob == "__/__/____" || dob ==""){
+                alert("Ngày sinh không được rỗng.");
+                return false;
+            }
+            if(cre_Date == "__/__/____" || dob ==""){
+                alert("Ngày tạo tài khoản không được rỗng.");
+                return false;
+            }
+            if(date_create_premium == "" || date_create_premium == "__/__/____ __:__:__"){
+                if(time_premium != "" && parseFloat(time_premium) != 0){
+                    alert("Vui lòng cập nhật ngày băt đầu tài khoản vip.");
+                    return false;
+                }
+            }
+            if(date_create_premium != "" && date_create_premium != "__/__/____ __:__:__"){
+                if(time_premium == "" || parseFloat(time_premium) <= 0){
+                    alert("Vui lòng cập nhật lại thời gian tồn tại tài khoản vip.");
+                    return false;
+                }
+            }
+            if(r_ID == 2 || r_ID == 4){
+                if(pseudonym == ""){
+                    alert("Bút danh không được rỗng");
+                    return false;
+                }
+            }
+            if(r_ID != 3){
+                if(tc_ID != "0"){
+                    alert("Vui lòng chỉnh chuyển mục quản lý về không có.");
+                    return false;
+                }
+            }
+            if(r_ID == 1 || r_ID == 3){
+                if(pseudonym != ""){
+                    alert("Bút danh không cần nhập.");
+                    return false;
+                }
+            }
+            var temp= "";
+            $.getJSON(`/admin/user/edit/is-available-email?email=${Email}&ID=${ID}`, function (data) {
+                temp = data;
+                if (data) {
+                    alert('Email mới sửa đã tồn tại.');
+                    return false;
+                }
+            })
+            $.getJSON(`/admin/user/edit/is-available?user=${user}&ID=${ID}`, function (data) {
+                if (data === false) {
+                    if(temp === false){
+                        $('#frmedit').off('submit').submit();
+                        return false;
+                    }
+                } else {
+                    alert('Tên đăng nhập mới sửa đã tồn tại.');
+                    return false;
+                }
+            })
+        }
+    </script>
+{{/section}}
+
+
+<!-- markup -->
+<!-- note: your server code `/site/avatar_upload/2` will receive `$_FILES['avatar-2']` on form submission -->
+<!-- the avatar markup -->
+<div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+<div class="container-fluid" style="background-image: url('https://i.pinimg.com/originals/87/12/6a/87126ac3421f470fe2c4c71a77924799.jpg'); background-size: cover;background-repeat;  margin-top:50px; margin-bottom: 50px">
+  <div class="container" style="padding: 50px;">
+        <form class="form form-vertical" id="frmedit" method="POST" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="kv-avatar">
+                    <div class="file-loading">
+                        <input id="avatar-2" name="Image" type="file">
+                    </div>
+                </div>
+                <div class="kv-avatar-hint">
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-sm-6">
+
+                <div class="form-group">
+                    <label for="email">Địa chỉ email<span class="kv-reqd">*</span></label>
+                    <input name="Email" id="Email" value="{{row.Email}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label >Loại tài khoản<span class="kv-reqd">*</span></label>
+                    <select class="form-control" name="r_ID" id="r_ID">
+                        {{#each this.roleacc}}
+                            {{#if selected }}
+                                <option selected value="{{ID}}">{{Name}}</option>
+                            {{else}}
+                                <option value="{{ID}}">{{Name}}</option>                  
+                            {{/if}}
+                        {{/each}}
+                    </select>
+                </div>
+                  <div class="form-group">
+                    <label >Chuyên mục quản lý<span class="kv-reqd">*</span></label>
+                    <select class="form-control" name="tc_ID" id="tc_ID">
+                        <option value="0">Không có</option>
+                        {{#each this.typecategory}}
+                            {{#if selected }}
+                                <option selected value="{{ID}}">{{tc_Name}}</option>
+                            {{else}}
+                                <option value="{{ID}}">{{tc_Name}}</option>                  
+                            {{/if}}
+                        {{/each}}
+                        
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label >Ngày Sinh<span class="kv-reqd">*</span></label>
+                    <input type="text" class="form-control" name="DOB" id="DOB">
+                </div>
+                <div class="form-group">
+                    <label >Ngày tạo tài khoản<span class="kv-reqd">*</span></label>
+                    <input type="text" class="form-control" name="cre_Date" id="cre_Date">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Mật khẩu mới</label>
+                    <input type="password" name="password" id="password" class="form-control">
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label >Id<span class="kv-reqd">*</span></label>
+                    <input type="text" class="form-control" name="ID" id="ID" value="{{row.ID}}" readonly required>
+                </div>
+                <div class="form-group">
+                    <label >Tên đăng nhập<span class="kv-reqd">*</span></label>
+                    <input type="text" class="form-control" name="username" id="username" value="{{row.username}}" required>
+                </div>
+                <div class="form-group">
+                    <label>Bút danh</span></label>
+                    <input  type="text" class="form-control" name="pseudonym" id="pseudonym" value="{{row.pseudonym}}">
+                </div>
+                <div class="form-group">
+                    <label >Ngày tài khoản vip có hiệu lực</label>
+                    <input  type="text" class="form-control" id="date_create_premium" name="date_create_premium">
+                </div>
+                <div class="form-group">
+                    <label >Thời gian tài khoản vip(đơn vị: giây)</label>
+                    <input  type="number" class="form-control" value="{{row.time_premium}}" id="time_premium" name="time_premium">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Xác nhận lại mật khẩu mới</label>
+                    <input type="password" name="cf_password" id="cf_password" class="form-control">
+                </div>
+            </div>
+        </div>
+         <a href="/admin/user" class="btn btn-success mr-1 mt-1 mb-2">
+                <i class="fa fa-backward" aria-hidden="true"></i>
+                Trở lại
+        </a>
+
+        <button type="submit"  class="btn btn-primary">
+            <i class="fa fa-edit"></i>
+            <span style="color: aliceblue; font-weight:bold; font-size:18px">Cập nhật</span>
+        </button>
+    </form>
+  </div>
+</div>
+
+ 

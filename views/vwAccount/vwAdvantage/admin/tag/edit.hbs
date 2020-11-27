@@ -1,0 +1,58 @@
+{{#section 'js'}}
+<script>
+     $('#frmUpdateTag').on('submit', function (e) {
+            e.preventDefault();
+            validate();
+        })
+        function validate() {
+            const nameTag = $('#txtname').val();
+            const aliasTag = $('#txtalias').val();
+            if (nameTag == "" && aliasTag == "") {
+                alert("Nội không được rỗng!!Mời bạn nhập lại!");
+                return false;
+            }
+            else if (nameTag == "") {
+                alert("Tên nhãn không được rỗng!!Mời bạn nhập lại!");
+                return false;
+            }
+            else if (aliasTag == "") {
+                alert("Bí danh nhãn không được rỗng!!Mời bạn nhập lại!");
+                return false;
+            }
+            $('#frmUpdateTag').off('submit').submit();
+        }
+</script>
+{{/section}}
+<div class=" container">
+    <div class="card-header">
+        <h4>Chỉnh sửa chuyên mục</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST" id="frmUpdateTag" action="/admin/tag/update" >
+            <div class="form-group">
+                <label for="txtID">STT</label>
+                <input type="text" class="form-control" id="txtID" name="ID" readonly value="{{this.tags.ID}}">
+            </div>
+            <div class="form-group">
+                <label for="txtname">Tên chuyên mục con</label>
+                <input type="text" class="form-control" id="txtname" name="Name" autofocus
+                    value="{{this.tags.Name}}">
+            </div>
+            <div class="form-group">
+                <label for="txtalias">Bí danh</label>
+                <input type="text" class="form-control" id="txtalias" name="tg_alias" autofocus
+                    value="{{this.tags.tg_alias}}">
+            </div>
+
+
+            <a class="btn btn-success" href="/admin/tag" role="button" title="Trở về danh sách">
+                <i class="fa fa-backward" aria-hidden="true"></i>
+            </a>
+            <button type="submit" id="frmUpdateTag" title="Lưu nhãn" class="btn btn-primary">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Lưu
+            </button>
+        </form>
+    </div>
+
+</div>

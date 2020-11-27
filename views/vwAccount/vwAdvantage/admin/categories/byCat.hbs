@@ -1,0 +1,65 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card">
+                <h5 class="card-header bg-info text-white">
+                    <p style="margin-left: 20%;">Danh sách chuyên mục</p>
+                </h5>
+                <div class="list-group list-group-flush">
+                    {{#each lcCat}}
+                    <a href="/admin/categories/{{alias}}" style="text-align: center;"
+                        class="list-group-item list-group-item-action  {{#if isActive}}active{{/if}}">
+                        {{tc_Name}}&nbsp; <i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i>
+                    </a>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="card mb-5">
+                <div class="card-header">
+                    <h4 class="text-info" style="margin-left: 30%;">Danh sách chuyên mục con</h4>
+                </div>
+                {{#if this.empty}}
+                <div class="card-body">
+                    <p class="card-text">Không có dữ liệu.</p>
+                </div>
+                {{else}}
+                <div class="card-body">
+                    <div class="row">
+                        {{#each this.list}}
+                        <div class="col-6 mb-3">
+                            <div class="card" style="width:300px;height:auto">
+                                <img src="/admin/img/{{c_images}}" alt="{{c_Name}}"
+                                    title="{{ID}}: {{c_Name}}" class="card-img-top ml-1 mr-1 mt-1"
+                                    style="width:290px;height:250px">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="text-align: center;">{{c_Name}}</h5>
+                                    <p class="card-text" style="text-align: center;">{{c_alias}}</p>
+                                </div>
+                                <div class="card-footer">
+                                    <a class="btn btn-sm btn-outline-success ml-5 "
+                                        href="/admin/categories/details/{{ID}}" role="button">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                        Chi tiết
+                                    </a>
+                                    <a class="btn btn-sm btn-outline-warning " href="/admin/categories/edit/{{ID}}"
+                                        role="button">
+                                        <i class="fa fa-wrench" aria-hidden="true"></i>
+                                        Cập nhật
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+                {{/if}}
+                <div class="card-footer text-muted " style="text-align: center;">
+                    <p class="text-danger">Design by 1760197</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+{{#section 'js'}}
+<script>
+    $('#frmUpdateCat').on('submit', function (e) {
+        e.preventDefault();
+        validate();
+    })
+    function validate() {
+        const nameCat = $('#txtname').val();
+        const aliasCat = $('#txtalias').val();
+        const img = $('#images').val();
+        if (nameCat == "" && aliasCat == "" && img == "") {
+            alert("Nội không được rỗng!!Mời bạn nhập lại!");
+            return false;
+        }
+        else if (nameCat == "") {
+            alert("Tên chuyên mục không được rỗng!!Mời bạn nhập lại!");
+            return false;
+        }
+        else if (aliasCat == "") {
+            alert("Bí danh chuyên mục không được rỗng!!Mời bạn nhập lại!");
+            return false;
+        }
+        else if (img == "") {
+            alert("Hình chuyên mục không được rỗng!!Mời bạn nhập lại!");
+            return false;
+        }
+        $('#frmUpdateCat').off('submit').submit();
+    }
+</script>
+{{/section}}
+<div class=" container">
+    <div class="card-header">
+        <h4>Chỉnh sửa chuyên mục</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST" id="frmUpdateCat" action="/admin/categories/updateCat" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="txtID">STT</label>
+                <input type="text" class="form-control" id="txtID" name="ID" readonly value="{{this.cats.ID}}">
+            </div>
+            <div class="form-group">
+                <label for="txtname">Tên chuyên mục con</label>
+                <input type="text" class="form-control" id="txtname" name="tc_Name" autofocus
+                    value="{{this.cats.tc_Name}}">
+            </div>
+            <div class="form-group">
+                <label for="txtalias">Bí danh</label>
+                <input type="text" class="form-control" id="txtalias" name="alias" autofocus
+                    value="{{this.cats.alias}}">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFail">Hình ảnh</label>
+                <div>
+                    <img src="/admin/img/{{this.cats.images}}" alt="{{this.cats.tc_Name}}" title="{{this.cats.ID}}-{{this.cats.tc_Name}}"
+                        style="width: 400px;margin: 10px;border-radius: 2% ">
+                </div>
+                <input type="file" class="form-control" id="exampleInputFail" name="images">
+            </div>
+
+
+            <a class="btn btn-success" href="/admin/categories" role="button" title="Trở về danh sách">
+                <i class="fa fa-backward" aria-hidden="true"></i>
+            </a>
+            <button type="submit" id="btnUpdateCat" title="Lưu chuyên mục" class="btn btn-primary" >
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Lưu
+            </button>
+        </form>
+    </div>
+
+</div>

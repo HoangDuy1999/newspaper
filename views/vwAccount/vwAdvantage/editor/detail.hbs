@@ -1,0 +1,39 @@
+<div class="container" style="margin-top: 150px;">
+    {{#each rows}}
+    <h2 class="display-4 font-weight-bold">{{title}}</h2>
+    <div class="row">
+        <div class="col">
+            <div id="article-detail" class="my-3">
+                <img src="/article/{{images}}" style="width:900px;height:400px" class="img-fluid">
+                <div class="container-fuild">
+                    {{{content}}}
+                </div>
+            </div>
+            <h6 class="article-tags d-none d-sm-block" style="margin-bottom: 20px;">
+                <span id="thetab">
+               <i class="fa fa-tags"></i>
+                </span>
+                <script type="text/javascript">
+                    var str = "{{{tags}}}";
+                    str = str.split(',');
+                    var temp="";
+                    for(i = 0; i < str.length -1 ; i++){   
+                        //tạo phần tử p    
+                        var a = document.createElement("a");
+                        a.className = "badge badge-secondary";
+                        a.style=" margin-right:5px";
+                        a.href = "#";
+                        a.innerText = str[i] + " x ";
+                        var span = document.getElementById("thetab");
+                        //gắn p vào div
+                        span.appendChild(a)
+                    }
+                </script>
+            </h6>
+            <a class="btn btn-primary" style="width:25px; height:25px;padding:0" title="Quay lại" href="http://localhost:3000/account/advantage/3/published">
+                        <i class="fa fa-backward" style="color: white;" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+    {{/each}}
+</div>

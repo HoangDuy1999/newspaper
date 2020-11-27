@@ -1,0 +1,261 @@
+{{#section 'css'}}
+<style>
+</style>
+{{/section}}
+
+{{#section 'js'}}
+
+<script type="text/JavaScript">
+    if({{{isnopre}}}){
+
+    }else{
+        document.addEventListener('contextmenu', event => event.preventDefault());
+            function disableselect(e){
+                return false
+            }
+            function reEnable(){
+                return true
+            }
+            document.onselectstart=new Function ("return false")
+            if (window.sidebar){
+                document.onmousedown=disableselect
+                document.onclick=reEnable
+            }
+    }
+
+    $('#frmcomment').on('submit', function (e) {
+            e.preventDefault();
+            validate();
+        })
+        function validate(){
+            const txtName = $('#txtName').val();
+            const txtComment = $('#txtComment').val();
+            const id = "{{{id}}}";
+            var check = false;
+            var d = new Date();
+            if("{{{r_id}}}" != "1"){
+                alert("Bình luận chỉ dành cho đọc giả. Vui lòng đăng nhập bằng tài khoản độc giả để bình luận");
+                return false;
+            }
+            if(txtName == ""){
+                alert('Tên người bình luận không được trống.');
+                    return false;
+            }
+            if(txtComment == ""){
+                alert('Nội dung bình luận không được trống.');
+                    return false;
+            }
+            $.getJSON(`/article/is-available_comment?readerName=${txtName}&Content=${txtComment}&id=${id}:null`, function (data) {
+                if (data) {
+                     var day = d.getDate();
+                     var month = parseInt(d.getMonth()) + 1;
+                     var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+                if(day < 10){
+                    day = '0' + day;
+                }
+                if(month < 10){
+                    month = '0' + month;
+                }
+                d =time +' | '+ day + '-' + month  + '-' + d.getFullYear();
+                $('#txtName').val("");
+                $('#txtComment').val("");
+                var str = '';
+                str += "<li class='list-group-item'>"; str += "<div class='font-weight-bold'>" + txtName + "</div>";
+                str += "<div>"+ txtComment + "</div>"; str += "<div class='float-right text-muted'>";
+                str += "Ngày đăng:" + d + "</div>"; str += "</li>";
+                $("#comment-ul").append(str);
+                return false;
+                } else {
+                    alert('luu db thât bại');
+                    return false;
+                }
+            })
+            if(check){
+               
+            }
+        }
+
+</script>
+<script>
+     if("{{{premium}}}" == "1"){
+        $.getJSON(`/article/generatepdf?id={{{id}}}`, function (data) {})
+    }
+    function myFunction(){
+        if("{{{isnopre}}}" === "true"){
+            window.open(`/article/download?id={{{id}}}`);
+        }else{
+            alert("vui lòng nạp vip để tải.");
+        }
+    }
+</script>
+{{/section}}
+
+{{#if isnopre}}
+
+{{else}}
+  <div style="position: absolute;z-index:1; margin-left: 20%; margin-top:7%;">
+    <div style="width:800px; height:400px;;background-image: url('https://i.pinimg.com/736x/79/e5/0c/79e50c3e8ee565dad09ac0ef222da854.jpg');background-repeat: no-repeat;background-size: cover;background-position: center;">
+      <p style="color: gold; font-size:25px; text-align:center; padding-top:255px">Bài viết chỉ được xem khi bạn nâng cấp tài khoản nên vip</p>
+      <a href="/account/profile/vip" style="text-align: center;margin-left:43%; background-color:#FFD700" class="btn btn-primary">
+      <i class="fa fa-crown"></i>
+        <span style="color: white; font-weight:bold; font-size:18px">Nạp vip</span>
+      </a>
+    </div>
+   
+</div>
+
+{{/if}}
+
+<div id="pageaticle" class="container mt-3" {{#if isnopre}} {{else}}style="filter: blur(5px); " {{/if}}>
+    <span class="text-primary" style="font-weight:bold;font-size:18px">Chuyên mục: {{cat.c_Name}}</span>
+    {{#each list }}
+    <h2 class="display-4 font-weight-bold">{{title}}</h2>
+    <div class="row">
+        <div class="col">
+            <div class="text-muted mb-3">Ngày đăng: {{format_DOB public_date}}</div>
+            <!-- Nội dung chi tiết bài viết -->
+            <div id="article-detail">
+                <img src="/article/{{images}}" style="margin-bottom:10px; width:100%" >
+                <div class="container-fuild">
+                 {{{content}}}
+                </div>
+            </div>
+            {{#if isPremium}}
+                <button id="savepdf" onclick="setimeout()"  data-toggle="modal" data-target="#exampleModal" type="button" class="btn btn-danger" style="background-color: #d00a0a; margin-bottom: 10px;">
+                <i class="fas fa-file-pdf"></i>    Tải về 
+                </button>
+            {{/if}}
+            {{/each}}
+            <br />
+            <span><i class="fas fa-tags mr-2"></i></span>
+            {{#each this.tag}}
+                    <span><a class="badge badge-secondary" href="/tags/{{tg_alias}}">{{Name}}</a></span>
+            {{/each}}
+
+  
+            <!-- Khu vực bình luận -->
+            <form id="frmcomment" method="POST" action="">   
+            <div class="comment-section bg-light w-100 p-3 my-3">
+                <input type="text" class="form-control mb-3" style="width: initial;" id="txtName"
+                 name="readerName"    placeholder="Tên của bạn">
+                <textarea class="form-control mb-3" rows="2" id="txtComment"
+                  name="Content"  placeholder="Bạn nghĩ gì về tin này?"></textarea>
+                <button {{#unless isnopre }} disabled {{/unless}} type="submit" class="btn btn-primary" id="comment-btn">Gửi bình luận</button>
+            </div>
+            </form>
+            <div class="comment-list">
+                <h5>Ý kiến bạn đọc</h5>
+                <ul class="list-group list-group-flush" id="comment-ul">
+                    {{#each this.opinion}}
+                    <li class="list-group-item">
+                        <div class="font-weight-bold">{{readerName}}</div>
+                        <div>{{Content}}</div>
+                        <div class="float-right text-muted">
+                        Ngày đăng: {{format_DOB created_at}}
+                        </div>
+                    </li>
+                    {{/each}}
+                  
+                </ul>
+            </div>
+
+            <!-- Bài viết cùng chuyên mục -->
+            <div id="same-category">
+                <h3> BÀI VIẾT CÙNG CHUYÊN MỤC</h3>
+                <ul class="list-group list-group-flush">
+                    {{#each list5Art_same }}
+                    <li class="list-group-item">
+                      
+                    <div class="row">
+                        <div class="col-12">
+                          <div class="img-cont1 mr-3 col-md-4">
+                            <img src="/article/{{images}}" title="{{c_Name}}: {{id}}-{{title}}" 
+                                style="width:350px;height:300px" class="float-left mr-2 lazyload"
+                                alt="...">
+                        </div>
+                        
+                            <div class="ml-5 col-md-12">
+                                <a href="/article/{{c_alias}}/{{id}}/{{title_alias}}" class="text-dark link_same">
+                                    <h5 class="card-title " title="{{title}}">{{title}}</h5>
+                                </a>
+                            <h6 class="card-subtitle my-2 text-muted">
+                                Ngày đăng: {{format_DOB public_date}}
+                            </h6>
+                            <div class="card-text d-none d-lg-block">
+                                {{abstract}}
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div> <!-- col-8-->
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Tải bài viết</h5>
+        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>-->
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <h5>Bắt đầu tải sau</h5>
+        <h5 id="demo" style="font-weight: bold;">5s</h5>
+     <script>
+        function setimeout(){
+        $('#exampleModal').modal({backdrop: 'static', keyboard: false})       
+        // Set the date we're counting down to
+        var countDownDate = new Date("Jan 5, 2021 15:37:25").getTime();
+        var i = 5;
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+
+        // Get today's date and time
+        var now = new Date().getTime();
+            
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+            
+        // Time calculations for days, hours, minutes and seconds
+        //var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        //var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        //var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        seconds = seconds - seconds + i;
+        i = i - 1;
+         //Output the result in an element with id="demo"
+        document.getElementById("demo").innerHTML = seconds + "s ";
+        if(i % 2 != 0){
+            document.getElementById("demo").style.color = "red";
+        }else{
+             document.getElementById("demo").style.color = "black";
+        }
+        // If the count down is over, write some text 
+        if (i < 0) {
+            clearInterval(x);
+            myFunction();
+            $('#exampleModal').modal('toggle');
+            document.getElementById("demo").innerHTML = "5s";
+        }
+        }, 1000);
+        }
+    </script>
+      </div>
+      <!--
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    -->
+    </div>
+  </div>
+</div>

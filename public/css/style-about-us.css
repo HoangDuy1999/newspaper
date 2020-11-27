@@ -1,0 +1,45 @@
+.avatar img{
+    width: 250px;
+    height: 250px;
+    border-radius: 2%;
+}
+.about-page{
+    margin: 2%;
+}
+.info-avatar h5{
+    text-align: center;
+    color: green;
+    text-decoration: none;
+    margin-top: 5%;
+    margin-left:-10px;
+
+}
+.info-avatar p{
+    text-align: center;
+    margin-left:-15px;
+
+
+}
+ .avatar:hover img{
+    	opacity: 0.5;
+ }
+.info-avatar a{
+    text-decoration: none;
+}
+.our-team{
+    margin-top: 5%;
+}
+ li{
+   list-style-type: none;
+}
+
+.col-xs-12.col-sm-6.col-md-6 a{
+    margin-left: 1%;
+    text-decoration: none;
+    color: black;
+    
+
+}
+.col-xs-12.col-sm-6.col-md-6 a:hover{
+    color: orange;
+}

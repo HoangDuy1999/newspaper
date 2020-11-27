@@ -1,0 +1,90 @@
+{{#section 'css'}}
+<script src="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"></script>
+<style>
+    .disable_a{
+            color: currentColor;
+            opacity: 0.5;
+            text-decoration: none;
+            pointer-events: none;
+        }
+.dataTables_filter{
+    float: right;
+}
+.pagination
+{
+    float: right;
+}
+</style>
+
+{{/section}}
+{{#section 'js'}}
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+  <script>
+    $(document).ready(function() {
+     
+    // Cấu hình các nhãn phân trang
+    $('#BangTTSanPham').dataTable( {
+        "language": {
+        "sProcessing":   "Đang xử lý...",
+        "sLengthMenu":   "Xem _MENU_ mục",
+        "sZeroRecords":  "Không tìm thấy dòng nào phù hợp",
+        "sInfo":         "Đang xem _START_ đến _END_ trong tổng số _TOTAL_ mục",
+        "sInfoEmpty":    "Đang xem 0 đến 0 trong tổng số 0 mục",
+        "sInfoFiltered": "(được lọc từ _MAX_ mục)",
+        "sInfoPostFix":  "",
+        "sSearch":       "Tìm:",
+        "sUrl":          "",
+        "oPaginate": {
+            "sFirst":    "Đầu",
+            "sPrevious": "Trước",
+            "sNext":     "Tiếp",
+            "sLast":     "Cuối"
+            }
+        }
+    } );
+         
+    } ); 
+  </script>   
+<script>
+    $(document).ready( function(){
+        $("#BangTTSanPham").on("click", ".xuatban", function (event){
+            var $row = $(this).closest("tr"); 
+            $("#id").val( $row.find("#id_modal").text());
+        });
+    });
+</script>
+
+{{/section}}
+<div class="container" style="margin-top: 12%;">
+    <h3 style="text-align: center;  margin-top: 12%;" class="mb-3">Danh Sách Bài Viết Đã Xuất Bản</h3>
+      
+</div>
+    <table class="table table-bordered text-center" id="BangTTSanPham">
+    <thead>
+        <tr>
+        <th>Id</th>
+        <th>Tiêu Đề</th>
+        <th style="min-width:210px">Tình Trạng</th>
+        <th style="min-width:150px">Ngày xuất bản</th>
+        <th style="min-width:120px">Thao Tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each rows}}
+            <tr>
+                <th scope="row" id="id_modal">{{id}}</th>
+                <td>{{title}}</td>
+                <td>Đã xuất bản</td>
+                <td>{{format_date public_date}}</td>
+                <td>
+                    <a id="try" class="btn btn-info" href="/account/advantage/3/published/detail?id={{id}}" role="button" title="Xem">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+        {{/each}}
+    </tbody>
+    </table>
+
+</div>

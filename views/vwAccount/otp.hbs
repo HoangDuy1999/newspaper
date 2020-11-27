@@ -1,0 +1,66 @@
+{{#section 'js'}}
+    <script>
+        $('#formotp').on('submit', function (e) {
+            e.preventDefault();
+            validate();
+        })
+        function validate(){
+            const otp_1 = $('#otp1').val();
+            if(otp_1== ""){
+                alert('OTP không được rỗng.')
+                    return false;
+            }
+            if(otp_1.length < 6 ){
+                alert('OTP có 6 ký tự.')
+                return false;
+            }
+            if(otp_1.length > 6 ){
+                alert('OTP có 6 ký tự.')
+                return false;
+            }
+            
+            $.getJSON(`/account/login/forgotpassword/is-available_otp?otp=${otp_1}`, function (data) {
+                if (data) {
+                    $('#formotp').off('submit').submit();
+                } else {
+                    alert('OTP không hợp lệ.');
+                }
+            })
+        }
+    </script>
+
+{{/section}}
+
+<div class="container">
+    <div class="row" style="margin-top: 52px;margin-bottom: 52px;">
+        <div class="col-sm-6 mx-auto">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="text-center">
+                          <img src="data:image/jpeg;base64,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" 
+                           alt="logo-otp" width="200px" height="auto"/>
+                          <h2 class="text-center mt-1" style="color: red; font-weight:300">XÁC NHẬN OTP</h2>
+                          <p>Vui lòng nhập mã OTP vừa được gửi vô email của bạn(6 chữ số)</p>
+                          <div class="panel-body">
+                              
+                              <form id="formotp" method="POST" class="form">
+                                <fieldset>
+                                  <div class="form-group">
+                                    <div class="input-group">
+                                      <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                                      <input id="otp1" name="otp" placeholder="Nhập mã otp được gửi đính kèm trong email" class="form-control">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <input class="btn btn-lg btn-primary btn-block" value="Xác Nhận" title="Xác nhận mã OTP" type="submit">
+                                  </div>
+                                </fieldset>
+                              </form>
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>

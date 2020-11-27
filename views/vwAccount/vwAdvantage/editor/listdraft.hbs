@@ -1,0 +1,100 @@
+<div class="container" id="content" style="margin-top: 12%;">
+    {{#if this.empty}}
+    <div class="card-body">
+        <p class="card-text">Không có dữ liệu.</p>
+    </div>
+    {{else}}
+    <div class="row mt-5" >
+        <div class="col-12" id="byCat-article">
+            {{#each listdraft}}
+            <div class="d-flex mt-5">
+                <div class="row no-gutters align-items-strech">
+                    <div class="col-4">
+                        <div class="mb-2 img-cont1">
+                            <img src="/article/{{images}}" alt="{{title}}" title="{{c_Name}}: {{ID}}-{{title}}"
+                                style="width: 300px;height:250px" class="card-img lazyload" alt="...">
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="">
+                            <a href="/account/advantage/3/category/{{c_ID}}/{{id}}" class="text-dark link_bycat">
+                                <h3 class="card-title" title="{{title}}">{{title}}</h3>
+                            </a>
+                            <h6 class="card-subtitle mb-2 text-muted d-none d-sm-block">
+                                <span class="article-date">
+                                    <i class="fa fa-calendar mr-1"></i>
+                                    {{format_DOB public_date}}
+                                </span>
+                            </h6>
+                            <h6 class="card-subtitle mb-2 text-muted d-none d-sm-block">
+                                <span class="article-date" style="color: red; font-weight:bold">
+                                   <i class="fa fa-check-square mr-1"></i>
+                                    {{check_status sts_id}}
+                                </span>
+                            </h6>
+                            <h6 class="article-tags d-none d-sm-block">
+                                <p hidden>{{tags}}</p>
+                                <span id="thetab{{id}}">
+
+                                </span>
+                                <script type="text/javascript">
+                                    var str = "{{{tags}}}";
+                                    str = str.split(';');
+                                    var temp="";
+                                    for(i = 0; i < str.length; i++){   
+                                        //tạo phần tử p    
+                                        var a = document.createElement("a");
+                                        a.className = "badge badge-secondary";
+                                        a.style=" margin-right:5px";
+                                        a.href = "#";
+                                        a.innerText = str[i] + " x ";
+                                        var span = document.getElementById("thetab{{{id}}}");
+                                        //gắn p vào div
+                                        span.appendChild(a)
+                                    }
+                                </script>
+                            </h6>
+                            <div class="card-text d-none d-md-block">
+                                {{abstract}}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+            <div class="col-12 d-flex justify-content-center mt-5" style="margin-bottom: 10%;"
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item {{#unless can_go_prev}}disabled{{/unless}}">
+                        <a class="page-link" href="?page={{prev_value}}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {{#each this.page_items}}
+                    {{#if isActive}}
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">
+                            {{value}}
+                            <span class="sr-only">(current)</span>
+                        </span>
+                    </li>
+                    {{else}}
+                    <li class="page-item {{#if isDisabled}}disabled{{/if}}">
+                        <a class="page-link" href="?page={{value}}">{{value}}</a>
+                    </li>
+                    {{/if}}
+                    {{/each}}
+                    <li class="page-item {{#unless can_go_next}}disabled{{/unless}}">
+                        <a class="page-link" href="?page={{next_value}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        </div> <!-- col-8-->
+    </div>
+    {{/if}}
+</div>

@@ -1,0 +1,518 @@
+ #newest img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .carousel-caption {
+            text-align: start;
+            left: 30px;
+            right: 30px;
+        }
+
+        .carousel-item img {
+            -webkit-transition: all 0.7s ease;
+            transition: all 0.7s ease;
+            -webkit-filter: brightness(0.7);
+            filter: brightness(0.7);
+        }
+
+        .carousel-item img:hover {
+            -webkit-filter: brightness(1);
+            filter: brightness(1);
+        }
+
+        .trending-item {
+            position: relative;
+            display: none;
+        }
+
+        .trending-caption {
+            position: absolute;
+            left: 20px;
+            bottom: 20px;
+        }
+
+        .img-cont {
+            overflow: hidden;
+        }
+
+        .img-cont:hover img {
+            -webkit-transform: scale(1.3);
+            transform: scale(1.3);
+        }
+
+        .img-cont img {
+            -webkit-transition: all 0.8s ease;
+            transition: all 0.8s ease;
+            -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+        }
+
+        .img-cont1:hover img {
+            -webkit-transform: scale(0.5);
+            transform: scale(1.035);
+        }
+
+        .img-cont1 img {
+            -webkit-transition: all 0.8s ease;
+            transition: all 0.8s ease;
+
+        }
+
+        .card-group .card {
+            flex: 0 1 auto;
+            padding: 5px;
+            border-color: transparent;
+        }
+
+        .carousel-item h3 {
+            font-size: 1.25rem;
+            /*h5 style*/
+        }
+
+        @media (min-width: 576px) {
+            .carousel-item h3 {
+                font-size: 1.75rem;
+                /*h3 style*/
+            }
+        }
+
+        @media (min-width: 768px) {
+            .card-group .card {
+                width: 50%;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .card-group .card {
+                width: 33.3333%;
+            }
+
+            .trending-item {
+                display: block;
+            }
+        }
+
+        #quick-contact ul {
+            background: #f4f5f7;
+            list-style-type: none;
+            text-align: left;
+            margin-left: 0px;
+
+        }
+
+        #quick-contact li {
+            display: inline;
+            line-height: 40px;
+            margin-right: 5px;
+
+        }
+
+        .quick-call a {
+            color: #6c757d;
+            margin-left: 20px;
+            text-decoration: none;
+            font-size: 17px;
+            font-family: sans-serif;
+            float: left;
+            white-space: nowrap;
+        }
+
+        .quick-email a {
+            margin-left: 5%;
+            color: #6c757d;
+            float: left;
+            text-decoration: none;
+            font-size: 17px;
+            font-family: sans-serif;
+        }
+
+        .quick-login,
+        .quick-register {
+            float: right;
+
+        }
+
+        .quick-login,
+        .quick-register {
+            float: right;
+
+        }
+
+        .quick-account {
+            float: right;
+
+        }
+
+        .quick-login a,
+        .quick-register a {
+            text-decoration: none;
+            color: #6c757d;
+            font-size: 17px;
+            font-family: sans-serif;
+        }
+
+        .quick-login a:hover,
+        .quick-register a:hover,
+        .quick-call a:hover,
+        .quick-email a:hover {
+            text-decoration: none;
+            color: blue;
+
+        }
+
+        .content {
+            z-index: initial;
+        }
+
+        a.link_same,
+        a.link_bycat,
+        a.link_top10,
+        a.link_viewest,
+        a.link_newest,
+        a.link_trend {
+            text-decoration: none;
+        }
+
+        a.link_bycat h5:hover,
+        a.link_top10 h5:hover,
+        a.link_newest h5:hover,
+        a.link_viewest h5:hover {
+            color: #00a651;
+        }
+
+        a.link_same h5:hover {
+            color: #00a651;
+        }
+
+        /*==Style cơ bản cho website==*/
+        body {
+            font-family: sans-serif;
+            color: #333;
+        }
+
+        /*==Style cho menu===*/
+        #menu ul {
+            background: #162245;
+            list-style-type: none;
+        }
+
+        #menu li {
+            color: #f1f1f1;
+            display: inline-block;
+            width: 170px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-family: roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-weight: bold;
+            z-index: -1;
+
+        }
+
+        #menu a {
+            text-decoration: none;
+            color: #fff;
+            display: block;
+            margin-left: 0 !important;
+
+        }
+
+        #menu a:hover {
+            background: #F1F1F1;
+            color: rgb(236, 17, 17);
+            margin-left: 0 !important;
+
+
+        }
+
+        /*==Dropdown Menu==*/
+        .sub-menu {
+            display: none;
+            position: absolute;
+        }
+
+        #menu li {
+            position: initial;
+
+
+        }
+
+        #menu li:hover .sub-menu {
+            display: block;
+
+
+        }
+
+        .sub-menu li {
+            margin-left: 0 !important;
+            display: inline-block;
+            z-index: initial;
+
+
+        }
+
+
+        /*==Menu cấp 3==*/
+        .sub-menu>ul {
+            display: none !important;
+        }
+
+        .avatar img {
+            width: 250px;
+            height: 250px;
+            border-radius: 2%;
+        }
+
+        .about-page {
+            margin: 2%;
+        }
+
+        .info-avatar h5 {
+            text-align: center;
+            color: green;
+            text-decoration: none;
+            margin-top: 5%;
+            margin-left: -10px;
+
+        }
+
+        .info-avatar p {
+            text-align: center;
+            margin-left: -15px;
+
+
+        }
+
+        .avatar:hover img {
+            opacity: 0.5;
+        }
+
+        .info-avatar a {
+            text-decoration: none;
+        }
+
+        .our-team {
+            margin-top: 5%;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+        .col-xs-12.col-sm-6.col-md-6 a {
+            margin-left: 1%;
+            text-decoration: none;
+            color: black;
+
+
+        }
+
+        .form-selector-btn {
+            margin-top: 2%;
+            text-align: center;
+        }
+
+        #contact {
+            z-index: initial;
+
+        }
+
+        .col-xs-12.col-sm-6.col-md-6 a:hover {
+            color: orange;
+        }
+
+        /******************************************
+CSS PHẦN CHO TRANG  LỖI 404 
+******************************************/
+        .error_pagenotfound {
+            padding: 50px 30px 58px 30px;
+            margin: 0 auto;
+            width: 80%;
+            background-color: whitesmoke;
+            border: 1px solid #eee;
+            text-align: center;
+            margin: 30px auto;
+        }
+
+        .error_pagenotfound strong {
+            display: block;
+            font-size: 145px;
+            line-height: 100px;
+            color: #999;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 5px 5px 1px #eaeaea;
+        }
+
+        .error_pagenotfound b {
+            display: block;
+            font-size: 40px;
+            line-height: 50px;
+            color: #999;
+            margin: 0;
+            font-weight: 300;
+        }
+
+        .error_pagenotfound em {
+            display: block;
+            font-size: 18px;
+            color: #0083c1;
+            margin: 15px 0;
+            font-style: normal;
+        }
+
+        a.button-back {
+            border-radius: 50px;
+            font-size: 16px;
+            padding: 15px 25px;
+            margin-top: 15px;
+            background: #fed700;
+            color: #333e48;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        a.button-back:hover {
+            background: #333e48;
+            color: #fff;
+        }
+
+        /*THÊM XÍU HIỆU ỨNG CHO TRANG 404 THÊM XINH ĐỘNG*/
+        #animate-arrow {
+            position: relative;
+            top: 15px;
+            left: 0px;
+            animation: move 1s ease infinite;
+            margin-top: 150px;
+            color: red;
+        }
+
+        @keyframes move {
+            50% {
+                bottom: 10px;
+                top: 0px;
+            }
+        }
+
+        @media only screen and (min-width: 300px) and (max-width: 767px) {
+            .error_pagenotfound {
+                width: 100%;
+                border-radius: 0;
+                margin: 25px auto;
+                padding: 15px;
+            }
+
+            .error_pagenotfound em {
+                line-height: none;
+                margin-bottom: 10px;
+            }
+        }
+        .viewest{
+            background-color: white;
+            border: solid 1px gainsboro;
+        }
+
+.dropdown{
+ display: none;
+  position: absolute;
+  width: 300px;
+  box-shadow: 0px 1px 11px 0px green;
+  z-index: 1;
+  line-height: 30px;
+   
+}
+ul.nav-item a {
+  float: none;
+  padding: 10px 10px;
+  text-decoration: none;
+  text-align: left;
+ 
+
+}
+
+ul.dropdown  {
+  background-color: #162245;
+
+}
+ul.dropdown a {
+  color: #fff;
+ 
+}
+li.nav-item a:hover{
+    background: #0083c1;
+    color: rgb(236, 53, 53);
+   text-decoration: none;
+}
+ul.dropdown li.nav-item a:hover{
+    background: none;
+}
+.nav-item {
+    width: 190px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 30px;
+    height: auto;
+     font-family: roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+ul li:hover ul.dropdown {
+                display: block;
+                text-decoration: none;
+                /* Display the dropdown */
+            }
+
+ul li ul.dropdown li {
+                display: block;
+                text-decoration: none;
+                height: auto;
+                margin-top: 2%;
+            }
+
+.viewTop10{
+    border: 1px solid gainsboro;
+}
+.ck,.dn,.tc,.ktdt{
+    border-bottom: 1px solid rgb(240, 240, 240);
+    margin-bottom: 5%;
+
+}
+.viewTop10 p {
+   font-size: 14.6px;
+}
+.datepublic p {
+font-size: 15px;
+margin-bottom: -2%;
+}
+.breaking_news {
+    float: left;
+    padding:8px 15px 12px 30px;
+    background-color: #000;
+    position: relative;
+}
+.breaking_news:after {
+    content: '';
+    background: url(../img/dott1.png) no-repeat 0px 0px;
+    display: block;
+    width: 27px;
+    height: 60px;
+    position: absolute;
+    right: -17%;
+    top: 0%;
+    background-size: 100%;
+}
+.breaking_news h3 {
+    font-size:1.3em;
+    color: #fff;
+    margin: 0;
+}
+.hot-article{
+    background-color: gold;
+}
+.newlist{
+    background-color:forestgreen;
+ 
+}
+.viewestt {
+    background-color: #0083c1;
+}

@@ -1,0 +1,285 @@
+{{#section 'css'}}
+<script src="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"></script>
+<style>
+    * {
+        box-sizing: border-box
+    }
+    /* Style tab links */
+    .tablink {
+        background-color: #555;
+        color: white;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        font-size: 17px;
+        width: 20%;
+    }
+
+    .tablink:hover {
+        background-color: #777;
+    }
+
+    /* Style the tab content (and add height:100% for full page content) */
+    .tabcontent {
+        color: black;
+        display: none;
+        padding: 100px 20px;
+        height: 100%;
+    }
+</style>
+{{/section}}
+{{#section 'js'}}
+
+
+
+<script>
+    $(document).ready(function () {
+
+        // Cấu hình các nhãn phân trang
+        $('#Cat').dataTable({
+            "language": {
+                "sProcessing": "Đang xử lý...",
+                "sLengthMenu": "Xem _MENU_ mục",
+                "sZeroRecords": "Không tìm thấy dòng nào phù hợp",
+                "sInfo": "Đang xem _START_ - _END_ trong _TOTAL_ mục",
+                "sInfoEmpty": "Đang xem 0 đến 0 trong tổng số 0 mục",
+                "sInfoFiltered": "(được lọc từ _MAX_ mục)",
+                "sInfoPostFix": "",
+                "sSearch": "Tìm:",
+                "sUrl": "",
+                "oPaginate": {
+                    "sFirst": "Đầu",
+                    "sPrevious": "Trước",
+                    "sNext": "Tiếp",
+                    "sLast": "Cuối"
+                }
+            }
+        });
+
+    });
+    $(document).ready(function () {
+
+        // Cấu hình các nhãn phân trang
+        $('#CatChild').dataTable({
+            "language": {
+                "sProcessing": "Đang xử lý...",
+                "sLengthMenu": "Xem _MENU_ mục",
+                "sZeroRecords": "Không tìm thấy dòng nào phù hợp",
+                "sInfo": "Đang xem _START_ - _END_ trong _TOTAL_ mục",
+                "sInfoEmpty": "Đang xem 0 đến 0 trong tổng số 0 mục",
+                "sInfoFiltered": "(được lọc từ _MAX_ mục)",
+                "sInfoPostFix": "",
+                "sSearch": "Tìm:",
+                "sUrl": "",
+                "oPaginate": {
+                    "sFirst": "Đầu",
+                    "sPrevious": "Trước",
+                    "sNext": "Tiếp",
+                    "sLast": "Cuối"
+                }
+            }
+        });
+
+    }); 
+</script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#CatChild").on("click", ".delChildCat", function (event) {
+            var $row = $(this).closest("tr");
+            $("#_id").text($row.find("#id_modal").text());
+            $("#id").val($row.find("#id_modal").text());
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#Cat").on("click", ".delCat", function (event) {
+            var $row = $(this).closest("tr");
+            $("#_IDCat").text($row.find("#idCat").text());
+            $("#IDCat").val($row.find("#idCat").text());
+
+        });
+    });
+</script>
+<script>
+    function openPage(pageName, elmnt, color) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "";
+        }
+        document.getElementById(pageName).style.display = "block";
+        elmnt.style.backgroundColor = color;
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+</script>
+{{/section}}
+<div class=" container">
+    <button class="tablink" onclick="openPage('Home', this, '#1C86EE')" id="defaultOpen">Chuyên mục cha</button>
+    <button class="tablink" onclick="openPage('News', this, '#1C86EE')" >Chuyên mục con</button>
+
+    <div id="Home" class="tabcontent">
+        <div class="col-sm-6 col-md-6">
+            <a class="btn btn-outline-success ml-2 mb-5 mt-3 " style="float:left;" href="/admin/categories/addCat"
+                role="button">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Thêm mới chuyên mục
+            </a>
+        </div>
+        <div class="container mb-5 mt-5">
+            <h3 style="text-align: center;" class="mb-5 text-danger mt-5">Quản lý chuyên mục cha</h3>
+            <table class="table table-hover table-bordered   mt-5" id="Cat">
+                <thead class="thead-dark">
+                    <tr style="text-align:center">
+                        <th>STT</th>
+                        <th>Tên</th>
+                        <th>Bí danh</th>
+                        <th>Hình ảnh</th>
+                        <th>Thao tác</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each this.typeCat}}
+                    <tr class="text-primary" style="text-align:center">
+                        <td id="idCat" style="vertical-align:middle">{{ID}}</td>
+                        <td style="vertical-align:middle">{{tc_Name}}</td>
+                        <td style="vertical-align:middle">{{alias}}</td>
+                        <td style="vertical-align:middle"><img src="/admin/img/{{images}}"
+                                style="width: 200px;height:150px" alt=""></td>
+
+                        <td style="vertical-align:middle">
+                            <a class="btn btn-warning btn-sm" href="/admin/categories/editCat/{{ID}}" role="button"
+                                title="chỉnh sửa">
+                                <i class="fas fa-wrench" aria-hidden="true"></i>
+                            </a>
+                            <a class="btn btn-primary btn-sm" href="/admin/categories/{{alias}}" role="button"
+                                title="chi tiết">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a class="btn btn-danger btn-sm delCat" href="javascript;;" role="button"
+                                title="Xóa chuyên mục" data-toggle="modal" data-target="#exampleModal">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                    {{/each}}
+                </tbody>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <form method="POST">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">XÓA CHUYÊN MỤC</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <input hidden name="ID" type="text" id="IDCat" />
+                                    <p style="font-size: 20px;">Bạn có chăc muốn xóa chuyên mục có <b>id = <span
+                                                id="_IDCat"></span></b>
+                                        không?Hãy cẩn thận trước khi xóa nhé!</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" formaction="/admin/categories/delCat"
+                                        class="btn btn-danger">Xóa
+                                        chuyên mục cha</button>
+                            </form>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Thoát</button>
+                        </div>
+                    </div>
+                </div>
+            </table>
+        </div>
+    </div>
+
+    <div id="News" class="tabcontent">
+        <div class="col-sm-6 col-md-6">
+            <a class="btn btn-outline-success ml-2 mb-5 mt-3 " style="float:left;" href="/admin/categories/add"
+                role="button">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Thêm mới chuyên mục
+            </a>
+        </div>
+        <div class="container mb-5 mt-5">
+            <h3 style="text-align: center;" class="mb-5 text-danger mt-5">Quản lý chuyên mục con</h3>
+            <table class="table table-hover table-bordered mt-5" id="CatChild">
+                <thead class="thead-dark">
+                    <tr style="text-align:center">
+                        <th>STT</th>
+                        <th>Tên</th>
+                        <th>Bí danh</th>
+                        <th>Hình ảnh</th>
+                        <th>Thao tác</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each this.Cat}}
+                    <tr class="text-primary" style="text-align:center">
+                        <td id="id_modal" style="vertical-align:middle">{{ID}}</td>
+                        <td style="vertical-align:middle">{{c_Name}}</td>
+                        <td style="vertical-align:middle">{{c_alias}}</td>
+                        <td><img src="/admin/img/{{c_images}}" style="width: 200px;height:150px" alt=""></td>
+
+                        <td style="vertical-align:middle">
+                            <a class="btn btn-warning btn-sm" href="/admin/categories/edit/{{ID}}" role="button"
+                                title="chỉnh sửa">
+                                <i class="fas fa-wrench" aria-hidden="true"></i>
+                            </a>
+                            <a class="btn btn-primary btn-sm" href="/admin/categories/details/{{ID}}" role="button"
+                                title="chi tiết">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a class="btn btn-danger btn-sm delChildCat" href="javascript;;" role="button"
+                                title="Xóa chuyên mục" data-toggle="modal" data-target="#exampleModal1">
+                                <i class="fa fa-trash"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+
+                    {{/each}}
+                </tbody>
+                <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <form method="POST">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel1">XÓA CHUYÊN MỤC</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <input hidden name="ID" type="text" id="id" />
+                                    <p style="font-size: 20px;">Bạn có chăc muốn xóa chuyên mục có <b>id = <span
+                                                id="_id"></span></b>
+                                        không?Hãy cẩn thận trước khi xóa nhé!</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" formaction="/admin/categories/del" class="btn btn-danger">Xóa
+                                        chuyên mục con</button>
+                            </form>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Thoát</button>
+                        </div>
+                    </div>
+                </div>
+            </table>
+        </div>
+    </div>
+</div>

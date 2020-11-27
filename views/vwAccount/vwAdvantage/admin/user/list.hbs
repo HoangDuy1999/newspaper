@@ -1,0 +1,96 @@
+{{#section 'js'}}
+<script>
+      $(document).ready( function(){
+        $("#tableaccount").on("click", ".xoatk", function (event){
+            var $row = $(this).closest("tr"); 
+           $("#_id").text( $row.find("#id_modal").text());
+           $("#id").val( $row.find("#id_modal").text());
+           //alert(temp);
+        });
+    });
+</script>
+{{/section}}
+
+<div class="dropdown ml-2 mb-4">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Xem danh sách theo 
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="/admin/user">Tất cả loại tài khoản</a>
+    <a class="dropdown-item" href="/admin/user?value=1">Tài khoản độc giả</a>
+    <a class="dropdown-item" href="/admin/user?value=2">Tài khoản phóng viên</a>
+    <a class="dropdown-item" href="/admin/user?value=3">Tài khoản biên tập viên</a>
+    <a class="dropdown-item" href="/admin/user?value=4">Tài khoản quản trị viên</a>
+  </div>
+</div>
+<div class="container">
+    <h1 class="text-center mb-5">Danh sách tài khoản</h1>
+
+    <a class="btn btn-outline-success mb-2 " style="float:left;" href="/admin/user/add" role="button">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Thêm tài khoản
+    </a>
+    <table id="tableaccount" class="table table-striped table-hover text-center">
+        <thead>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th style="min-width: 200px; text-align:left">Tên đăng nhập</th>						
+                <th>Loại tài khoản</th>
+                <th>Tài khoản vip</th>
+                <th>Ngày tạo tài khoản</th>
+                <th style="min-width:165px;width:165px">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each rows}}
+                <tr>
+                    <td id="id_modal">{{ID}}</td>
+                    {{#if url }}
+                        <td style="text-align: left;"><img src="{{Image}}" 
+                                        style="border-style: solid;border-color: coral;border-radius: 50%;margin-right:5px" width="40px" height="40px" alt="Avatar">
+                            {{username}}
+                        </td>
+                    {{else}}
+                        <td style="text-align: left;"><img src="/img/profile/{{Image}}" 
+                                        style="border-style: solid;border-color: coral;border-radius: 50%;margin-right:5px" width="40px" height="40px" alt="Avatar">
+                            {{username}}
+                        </td>
+                    {{/if}}
+                    <td>{{Name}}</td>                        
+                    <td>{{premium}}</td>
+                    <td><span class="status text-success">{{cre_Date}}</td>
+                    <td>
+                         <a href="/admin/user/detail?id={{ID}}" class="btn btn-info btn-sm mr-2" title="Chi tiết" ><i class="fa fa-eye"></i></a>
+                        <a href="/admin/user/edit?id={{ID}}" class="btn btn-warning btn-sm mr-2" title="chỉnh sửa" ><i class="fa fa-edit"></i></a>
+                        <a href="#" class="xoatk btn btn-danger btn-sm mr-2" title="Xóa"  data-toggle="modal" data-target="#exampleModal" ><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <form method="POST">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">XÓA TÀI KHOẢN</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <input hidden name="id" type="text" id = "id"/>
+         <p style="font-size: 20px;">Bạn có chăc muốn xóa tài khoản có <b>id = <span id="_id"></span></b> không?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="submit"  class="btn btn-danger">Xóa tài khoản</button>
+    </form>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
