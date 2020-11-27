@@ -1,2 +1,2 @@
-run project: npm start
-database: public/news.sql
+<p>run project: npm start<p>
+<p>database: public/news.sql<p>
