@@ -14,7 +14,7 @@ const download = require('download');
 var path = require('path');
 const {promisify} = require('util');
 
-//chỉ sao bài báo
+//chỉ sao bài báo abc
 router.get('/pdf', async function(req, res) {
     id = req.query.id;
     var list = await articleModel.getarticlebyID(id);
